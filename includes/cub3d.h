@@ -15,11 +15,11 @@
 /*         DEFINE              */
 /* =========================== */
 
-# define ARG_USAGE "Usage: ./cub3D <valid_map.cub>\n"
-# define NULL_FILENAME "filename is NULL, please use a valid file\n"
-# define LENGTH_FILENAME "filename is too short. Minimum required: x.cub\n"
-# define EXTENSION_FILENAME "filename extension is invalid. Expected: .cub\n"
-# define HIDDEN_FILENAME "filename can't be a hidden file\n"
+# define ARG_USAGE "Usage: ./cub3D <valid_map.cub>"
+# define NULL_FILENAME "filename is NULL, please use a valid file"
+# define LENGTH_FILENAME "filename is too short. Minimum required: x.cub"
+# define EXTENSION_FILENAME "filename extension is invalid. Expected: .cub"
+# define HIDDEN_FILENAME "filename can't be a hidden file"
 
 /* =========================== */
 /*        STRUCTURES           */
