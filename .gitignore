@@ -27,3 +27,7 @@ Doxyfile
 
 # .supp file for valgrind
 *.supp
+
+# nvim json configs
+.json
+
