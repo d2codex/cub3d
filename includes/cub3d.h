@@ -14,7 +14,6 @@
 /* =========================== */
 /*         DEFINE              */
 /* =========================== */
-# define ERR "Error\n "
 # define NULL_FILENAME "filename is NULL, please use a valid file\n"
 # define LEN_FILENAME "filename is too short. Minimum required: x.cub\n"
 # define EXT_FILENAME "filename extension is invalid. Expected: .cub\n"
