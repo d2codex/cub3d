@@ -11,7 +11,7 @@ void	test_valid_arguments(void)
 	printf("  Result: %s\n", validate_argument("maps/valid/basic_map.cub") == EXIT_SUCCESS ? GRN "PASS" RESET : RED "FAIL" RESET);
 
 	printf("\n[2] maps/valid/ab.cub (edge: 6 chars, just above minimum)\n");
-	printf("  Result: %s\n", validate_argument("maps/alid/ab.cub") == EXIT_SUCCESS ? GRN "PASS" RESET : RED "FAIL" RESET);
+	printf("  Result: %s\n", validate_argument("maps/valid/ab.cub") == EXIT_SUCCESS ? GRN "PASS" RESET : RED "FAIL" RESET);
 }
 
 /**
