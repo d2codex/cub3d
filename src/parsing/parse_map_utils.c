@@ -86,6 +86,18 @@ void	free_map(t_map *map)
 	map->height = 0;
 }
 
+/**
+ * @brief Frees a partially allocated map grid.
+ *
+ * This function is used when the grid allocation fails partway through.
+ * It frees all rows that were successfully allocated up to `filled_rows`,
+ * then frees the grid pointer itself and resets it to NULL to avoid
+ * dangling references.
+ *
+ * @param map          Pointer to the map structure containing the grid.
+ * @param filled_rows  Number of rows that were successfully allocated.
+ *                     Only rows in the range [0, filled_rows - 1] will be freed.
+ */
 void	free_partial_grid(t_map *map, int filled_rows)
 {
 	while(--filled_rows >= 0)
