@@ -50,14 +50,15 @@ $(LIBFT_A):
 TEST_NAME = unit_tests
 
 TEST_SRCS =	tests/unit/test_file_validation.c \
+			tests/unit/test_init_mlx.c \
 			src/parsing/file_validations.c \
 			src/utils/print_errors.c \
 
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_DEPS = $(TEST_SRCS:.c=.d)
 
-test: $(LIBFT_A) $(TEST_OBJS)
-	$(CC) $(CFLAGS) $(TEST_OBJS) -o $(TEST_NAME) $(LIBFT_A)
+test: $(MLX_A) $(LIBFT_A) $(TEST_OBJS)
+	$(CC) $(CFLAGS) $(TEST_OBJS) -o $(TEST_NAME) $(MLX_A) $(SYSTEM_FLAGS) $(LIBFT_A)
 	./$(TEST_NAME)
 	$(RM) $(TEST_NAME) $(TEST_OBJS) $(TEST_DEPS)
 
