@@ -3,8 +3,7 @@
 /**
  * @brief Opens a .cub file for reading.
  * 
- * Wrapper around open() that prints an error message if the file
- * cannot be opened.
+ * Wrapper around open()
  *
  * @param path Path to the .cub file.
  * @return File descriptor on success, -1 on failure.
@@ -15,7 +14,7 @@ int	open_cub_file(const char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		perror("cub3d");
+		return (-1);
 	return (fd);
 }
 
@@ -48,12 +47,12 @@ void	print_map_grid(t_map *map)
 		{
 			c = map->grid[y][x];
 			if (c == ' ')
-				ft_putchar_fd('.', 0);
+				ft_putchar_fd('.', 1);
 			else
-				ft_putchar_fd(c, 0);
+				ft_putchar_fd(c, 1);
 			x++;
 		}
-		ft_putchar_fd('\n', 0);
+		ft_putchar_fd('\n', 1);
 		y++;
 	}
 }

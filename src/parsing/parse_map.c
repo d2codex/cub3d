@@ -28,8 +28,6 @@ static int	get_map_dimensions(const char *path, t_map *map)
 	fd = open_cub_file(path);
 	if (fd < 0)
 		return (1);
-	map->width = 0; //delete once init_data is implemented
-	map->height = 0; //delete once init_data is implemented
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -79,9 +77,9 @@ static char	*pad_line(const char *row, int width)
  */
 static int	load_map_grid(const char *path, t_map *map)
 {
+	int		y;
 	int		fd;
 	char	*line;
-	int		y; // row
 
 	fd = open_cub_file(path);
 	if (fd < 0)
@@ -96,7 +94,12 @@ static int	load_map_grid(const char *path, t_map *map)
 		map->grid[y] = pad_line(line, map->width);
 		free(line);
 		if (!map->grid[y])
+		{
+			while (--y >= 0)
+				free(map->grid[y]);
+			free(map->grid);
 			return (close(fd), 1);
+		}
 		y++;
 		line = get_next_line(fd);
 	}
@@ -121,12 +124,12 @@ int	parse_map(const char *path, t_map *map)
 {
 	if (get_map_dimensions(path, map))
 	{
-		print_errors("invalid map dimensions", NULL, NULL);
+		print_errors("Failed to get map dimensions", NULL, NULL);
 		return (1);
 	}
 	if (load_map_grid(path, map))
 	{
-		print_errors("failed loading map grid", NULL, NULL);
+		print_errors("Failed to load map grid", NULL, NULL);
 		return (1);
 	}
 	return (0);

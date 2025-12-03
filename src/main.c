@@ -2,7 +2,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_map	map;
+	t_game	game;
 
 	if (argc != 2)
 	{
@@ -11,9 +11,10 @@ int	main(int argc, char **argv)
 	}
 	if (validate_argument(argv[1]) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (parse_map(argv[1], &map))
+	init_data(&game);
+	if (parse_map(argv[1], &game.map))
 		return (EXIT_FAILURE);
-	print_map_grid(&map);
-	free_map(&map);
+	print_map_grid(&game.map);
+	free_map(&game.map);
 	return (EXIT_SUCCESS);
 }
