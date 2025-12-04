@@ -29,6 +29,8 @@ SRCS =	src/main.c \
 		src/parsing/file_validations.c \
 		src/parsing/parse_map.c \
 		src/parsing/parse_map_utils.c \
+		src/parsing/player_setup.c \
+		src/parsing/player_setup_utils.c \
 		src/utils/print_errors.c \
 
 OBJS = $(SRCS:.c=.o)
@@ -53,10 +55,13 @@ $(LIBFT_A):
 TEST_NAME = unit_tests
 
 TEST_SRCS =	tests/unit/test_file_validation.c \
+			src/init/init_data.c \
 			src/parsing/file_validations.c \
 			src/parsing/parse_map.c \
 			src/parsing/parse_map_utils.c \
+			src/parsing/player_setup.c \
 			src/utils/print_errors.c \
+			tests/unit/test_player_setup.c \
 
 TEST_OBJS = $(TEST_SRCS:.c=.o)
 TEST_DEPS = $(TEST_SRCS:.c=.d)
