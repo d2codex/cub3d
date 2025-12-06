@@ -26,9 +26,11 @@ INC_DIR = -Iincludes -I$(LIBFT_DIR)/includes -I$(MLX_DIR)
 # === sources ===
 SRCS =	src/main.c \
 		src/init/init_data.c \
+		src/init/init_mlx.c \
 		src/parsing/file_validations.c \
 		src/parsing/parse_map.c \
 		src/parsing/parse_map_utils.c \
+		src/render/draw_pixels.c \
 		src/utils/print_errors.c \
 
 OBJS = $(SRCS:.c=.o)
