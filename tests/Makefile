@@ -20,7 +20,7 @@ LIBCUB = $(LIB_DIR)/libcub3d.a
 # project source files (excluding main.c)
 SRC = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC_DIR)/*.c))
 
-# build object files from sorce files
+# build object files from source files
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # unit tests
@@ -39,7 +39,7 @@ $(LIBCUB): $(OBJ)
 	@mkdir -p $(LIB_DIR)
 	ar rcs $@ $(OBJ)
 
-# compile sorce files into LIB_DIR
+# compile source files into LIB_DIR
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC_DIR) -c $< -o $@

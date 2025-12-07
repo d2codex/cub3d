@@ -83,9 +83,9 @@ static void	set_player_position(t_game *game, int y, int x)
 			game->player.dir_y = orient[i].dir_y;
 			game->player.plane_x = orient[i].plane_x;
 			game->player.plane_y = orient[i].plane_y;
-			i++;
 			return ;
 		}
+		i++;
 	}
 	print_errors("Invalid player orientation", NULL, NULL);
 }

@@ -35,7 +35,7 @@ SRC =	src/main.c \
 		src/parsing/player_setup_utils.c \
 		src/utils/print_errors.c \
 
-# objec files preserving subdirectory structure
+# object files preserving subdirectory structure
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DEPS = $(OBJ:.o=.d)
 
