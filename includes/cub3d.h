@@ -15,11 +15,6 @@
 /*         DEFINE              */
 /* =========================== */
 
-/* game elements */
-# define WINDOWS_X 800
-# define WINDOWS_Y 600
-# define WINDOWS_MSG "Wecolme to cub3D"
-
 /* errors messages */
 # define ARG_USAGE "Usage: ./cub3D <valid_map.cub>"
 # define NULL_FILENAME "Filename is NULL, please use a valid file"
@@ -34,9 +29,14 @@
 # define IMG_INIT "Initialization of the MLX image buffer failed"
 # define IMG_DATA "Retrieving IMG data failed"
 
-// map constants
+/* map constant */
 # define PLAYER "NSEW"
 # define TILE_CENTER_OFFSET 0.5
+
+/* game elements */
+# define WINDOWS_X 800
+# define WINDOWS_Y 600
+# define WINDOWS_MSG "Wecolme to cub3D"
 
 /* =========================== */
 /*        STRUCTURES           */
