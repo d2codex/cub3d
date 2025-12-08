@@ -52,7 +52,7 @@ void	test_invalid_arguments(void)
 	printf("  Result: %s\n", validate_argument("maps/invalid/noperm.cub") == EXIT_FAILURE ? GRN "PASS" RESET : RED "FAIL" RESET); */
 }
 
-/* int	main(void)
+main(void)
 {
 
 	printf(MAG "FILE VALIDATION TESTS - cub3D\n" RESET);
@@ -61,4 +61,4 @@ void	test_invalid_arguments(void)
 	test_invalid_arguments();
 
 	return (0);
-} */
+}
