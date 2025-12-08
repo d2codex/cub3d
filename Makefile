@@ -28,9 +28,11 @@ INC_DIR = -Iincludes -I$(LIBFT_DIR)/includes -I$(MLX_DIR)
 # === source files ===
 SRC =	src/main.c \
 		src/init/init_data.c \
+		src/init/init_mlx.c \
 		src/parsing/file_validations.c \
 		src/parsing/parse_map.c \
 		src/parsing/parse_map_utils.c \
+		src/render/draw_pixels.c \
 		src/parsing/player_setup.c \
 		src/parsing/player_setup_utils.c \
 		src/utils/print_errors.c \
