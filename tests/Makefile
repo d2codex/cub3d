@@ -74,8 +74,3 @@ deepclean: fclean
 # Usage: make run TEST=unit/test_name.c
 run: $(BIN_DIR)/$(basename $(notdir $(TEST)))
 	./$(BIN_DIR)/$(basename $(notdir $(TEST)))
-
-$(BIN_DIR)/$(notdir $(TEST)): $(TEST) $(LIBCUB) $(LIBFT) $(MLX)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(INC_DIR) $(TEST) $(LIBCUB) $(LIBFT) $(MLX) \
-		-lm -lXext -lX11 -o $@

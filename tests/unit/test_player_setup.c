@@ -36,6 +36,8 @@ void	test_single_player_north(void)
 	assert(g.player.pos_y == 1.5);
 	assert(g.player.dir_x == 0.0);
 	assert(g.player.dir_y == -1.0);
+	assert(g.player.plane_x == 0.66);
+	assert(g.player.plane_y == 0.0);
 	printf("test_single_player_north OK\n");
 }
 
@@ -58,6 +60,8 @@ void	test_single_player_south(void)
 	assert(g.player.pos_y == 1.5);
 	assert(g.player.dir_x == 0.0);
 	assert(g.player.dir_y == 1.0);
+	assert(g.player.plane_x == -0.66);
+	assert(g.player.plane_y == 0.0);
 	printf("test_single_player_south OK\n");
 }
 
@@ -80,6 +84,8 @@ void	test_single_player_east(void)
 	assert(g.player.pos_y == 1.5);
 	assert(g.player.dir_x == 1.0);
 	assert(g.player.dir_y == 0.0);
+	assert(g.player.plane_x == 0.0);
+	assert(g.player.plane_y == 0.66);
 	printf("test_single_player_east OK\n");
 }
 
@@ -102,6 +108,8 @@ void	test_single_player_west(void)
 	assert(g.player.pos_y == 1.5);
 	assert(g.player.dir_x == -1.0);
 	assert(g.player.dir_y == 0.0);
+	assert(g.player.plane_x == 0.0);
+	assert(g.player.plane_y == -0.66);
 	printf("test_single_player_west OK\n");
 }
 
