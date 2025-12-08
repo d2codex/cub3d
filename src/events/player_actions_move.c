@@ -8,7 +8,7 @@
 void	move_forward(t_game *game)
 {
 	(void)game;
-	printf(" DEBUG: Moving FORWARD\n");
+	printf("DEBUG: Moving FORWARD\n");
 }
 
 /**
