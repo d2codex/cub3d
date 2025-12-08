@@ -10,9 +10,9 @@
  *
  * Expected result: Window opens with green square in top-left corner
  * note:
- * - you'll have to kill the windows by ctrl+c in your terminal because no
+ * - you'll have to kill the window by ctrl+c in your terminal because no
  * events are implemented yet
- * - no clean up are done in this test, it's not making much sense without
+ * - no clean up is done in this test, it's not making much sense without
  * having the events set up
  */
 int	main(void)

@@ -1,6 +1,29 @@
 #include "cub3d.h"
 
 /**
+  * @brief Cleans up partially initialized MLX resources
+  *
+  * Safely destroys MLX resources by checking if they exist before cleanup.
+  * Can be called at any stage of initialization failure.
+  *
+  * @param game Pointer to game structure with potentially partial MLX init
+*/
+static void	cleanup_partial_mlx_init(t_game *game)
+{
+	if (!game)
+		return ;
+	if (game->img)
+		mlx_destroy_image(game->mlx, game->img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+}
+
+/**
  * @brief Initializes MLX connection to X11 display server
  *
  * Establishes connection between program and graphical system.
@@ -11,11 +34,6 @@
  */
 static int	init_game_connection(t_game *game)
 {
-	if (!game)
-	{
-		print_errors(NULL_TGAME, NULL, NULL);
-		return (EXIT_FAILURE);
-	}
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
@@ -36,11 +54,6 @@ static int	init_game_connection(t_game *game)
  */
 static int	init_game_windows(t_game *game)
 {
-	if (!game)
-	{
-		print_errors(NULL_TGAME, NULL, NULL);
-		return (EXIT_FAILURE);
-	}
 	game->win = mlx_new_window(game->mlx, WINDOWS_X, WINDOWS_Y, WINDOWS_MSG);
 	if (!game->win)
 	{
@@ -61,11 +74,6 @@ static int	init_game_windows(t_game *game)
  */
 static int	init_game_image_buffer(t_game *game)
 {
-	if (!game)
-	{
-		print_errors(NULL_TGAME, NULL, NULL);
-		return (EXIT_FAILURE);
-	}
 	game->img = mlx_new_image(game->mlx, WINDOWS_X, WINDOWS_Y);
 	if (!game->img)
 	{
@@ -99,10 +107,19 @@ int	init_game_data(t_game *game)
 		return (EXIT_FAILURE);
 	}
 	if (init_game_connection(game) != EXIT_SUCCESS)
+	{
+		cleanup_partial_mlx_init(game);
 		return (EXIT_FAILURE);
+	}
 	if (init_game_windows(game) != EXIT_SUCCESS)
+	{
+		cleanup_partial_mlx_init(game);
 		return (EXIT_FAILURE);
+	}
 	if (init_game_image_buffer(game) != EXIT_SUCCESS)
+	{
+		cleanup_partial_mlx_init(game);
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }

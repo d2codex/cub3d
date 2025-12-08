@@ -15,7 +15,7 @@
 /*         DEFINE              */
 /* =========================== */
 
-/* errors messages */
+/* error messages */
 # define ARG_USAGE "Usage: ./cub3D <valid_map.cub>"
 # define NULL_FILENAME "Filename is NULL, please use a valid file"
 # define LENGTH_FILENAME "Filename is too short. Minimum required: x.cub"
@@ -29,14 +29,14 @@
 # define IMG_INIT "Initialization of the MLX image buffer failed"
 # define IMG_DATA "Retrieving IMG data failed"
 
-/* map constant */
+/* map constants */
 # define PLAYER "NSEW"
 # define TILE_CENTER_OFFSET 0.5
 
 /* game elements */
 # define WINDOWS_X 800
 # define WINDOWS_Y 600
-# define WINDOWS_MSG "Wecolme to cub3D"
+# define WINDOWS_MSG "Welcome to cub3D"
 
 /* =========================== */
 /*        STRUCTURES           */
@@ -81,7 +81,7 @@ typedef struct s_game
 	char		*img_addr;	// memory address of the image pixels (from mlx_get_data_addr)
 	int			img_bpp;		// bits per pixel (from mlx_get_data_addr)
 	int			img_line_len;	// number of bytes in a line of the image (from mlx_get_data_addr)
-	int			img_endian; 	// endian format of the image (from mlx_get_data_addr)
+	int			img_endian;	// endian format of the image (from mlx_get_data_addr)
 	// === Assets ===
 	// t_tex	   textures[4]; // array of 4 loaded textures (NO, SO, WE, EA)
 	// === Game state ===
@@ -106,7 +106,7 @@ typedef struct s_orientation
 /* init_data.c */
 void	init_data(t_game *game);
 
-/* init_mlx */
+/* init_mlx.c */
 int		init_game_data(t_game *game);
 
 /* =========================== */
@@ -125,24 +125,24 @@ void	print_map_grid(t_map *map);
 void	free_map(t_map *map);
 void	free_partial_grid(t_map *map, int filled_rows);
 
+/* player_setup_utils.c */
+void	print_player_info(t_player *player);
+
+/* player_setup.c */
+int		init_player(t_game *game);
+
 /* =========================== */
 /*           RENDERS           */
 /* =========================== */
+
+/* draw_pixels.c*/
 void	draw_pixel_in_buffer(t_game *game, int x, int y, int color);
 
 /* =========================== */
 /*           UTILS             */
 /* =========================== */
 
-/* print_errors.c */
-void	print_errors(char *p1, char *p2, char *p3);
-/* player_setup.c */
-int			init_player(t_game *game);
-
-/* player_setup_utils.c */
-void		print_player_info(t_player *player);
-
 /* utils/print_errors.c */
-void		print_errors(char *p1, char *p2, char *p3);
+void	print_errors(char *p1, char *p2, char *p3);
 
 #endif
