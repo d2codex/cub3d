@@ -132,6 +132,9 @@ void	print_player_info(t_player *player);
 /* player_setup.c */
 int		init_player(t_game *game);
 
+/* validate_map.c */
+int		check_valid_map(t_map *map, t_player *player);
+
 /* =========================== */
 /*           RENDERS           */
 /* =========================== */
