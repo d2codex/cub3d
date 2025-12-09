@@ -25,7 +25,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # unit tests
 UNIT_TESTS = $(wildcard $(UNIT_DIR)/test_*.c)
-UNIT_BIN = $(UNIT_TESTS:$(UNIT_DIR)/%.c=$(BIN_DIR)/%)
+UNIT_BIN = $(addprefix $(BIN_DIR)/,$(basename $(notdir $(UNIT_TESTS))))
 
 # Default target: build and run all tests
 all: $(LIBCUB) $(UNIT_BIN)
@@ -72,10 +72,5 @@ deepclean: fclean
 
 # Build a single test
 # Usage: make run TEST=unit/test_name.c
-run: $(BIN_DIR)/$(notdir $(TEST))
-	./$(BIN_DIR)/$(notdir $(TEST))
-
-$(BIN_DIR)/$(notdir $(TEST)): $(TEST) $(LIBCUB) $(LIBFT) $(MLX)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(INC_DIR) $(TEST) $(LIBCUB) $(LIBFT) $(MLX) \
-		-lm -lXext -lX11 -o $@
+run: $(BIN_DIR)/$(basename $(notdir $(TEST)))
+	./$(BIN_DIR)/$(basename $(notdir $(TEST)))
