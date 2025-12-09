@@ -35,6 +35,7 @@ SRC =	src/main.c \
 		src/render/draw_pixels.c \
 		src/parsing/player_setup.c \
 		src/parsing/player_setup_utils.c \
+		src/parsing/validate_map.c \
 		src/utils/print_errors.c \
 
 # object files preserving subdirectory structure

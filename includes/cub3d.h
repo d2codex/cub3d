@@ -124,6 +124,7 @@ int		open_cub_file(const char *path);
 void	print_map_grid(t_map *map);
 void	free_map(t_map *map);
 void	free_partial_grid(t_map *map, int filled_rows);
+void	free_map_copy(char **grid, int map_height);
 
 /* player_setup_utils.c */
 void	print_player_info(t_player *player);
