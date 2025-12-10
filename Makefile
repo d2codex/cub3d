@@ -29,8 +29,10 @@ INC_DIR = -Iincludes -I$(LIBFT_DIR)/includes -I$(MLX_DIR)
 SRC =	src/main.c \
 		src/events/cleanup_exit.c \
 		src/events/events_handler.c \
+		src/events/hooks.c \
 		src/events/player_actions_rotate.c \
 		src/events/player_actions_move.c \
+		src/events/mouse_handler.c \
 		src/init/init_data.c \
 		src/init/init_mlx.c \
 		src/parsing/file_validations.c \
