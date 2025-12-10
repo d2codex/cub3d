@@ -137,6 +137,12 @@ int				handle_close(void *param);
 int				game_loop(void *param);
 t_key_binding	*get_key_bindings(t_game *game);
 
+/* mouse_handler.c */
+int				handle_mouse_move(int x, int y, void *param);
+
+/* hooks.c */
+void			setup_hooks(t_game *game);
+
 /* player_actions_rotate.c */
 void			rotate_left(t_game *game);
 void			rotate_right(t_game *game);
