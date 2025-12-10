@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
 /**
-  * @brief Moves player forward in current direction
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Moves player forward in current direction
+ *
+ * @param game Pointer to game structure
+ */
 void	move_forward(t_game *game)
 {
 	static int	frame_count = 0;
@@ -16,10 +16,10 @@ void	move_forward(t_game *game)
 }
 
 /**
-  * @brief Moves player backward (opposite of current direction)
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Moves player backward (opposite of current direction)
+ *
+ * @param game Pointer to game structure
+ */
 void	move_backward(t_game *game)
 {
 	static int	frame_count = 0;
@@ -31,10 +31,10 @@ void	move_backward(t_game *game)
 }
 
 /**
-  * @brief Strafes player to the left (perpendicular to direction)
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Strafes player to the left (perpendicular to direction)
+ *
+ * @param game Pointer to game structure
+ */
 void	strafe_left(t_game *game)
 {
 	static int	frame_count = 0;
@@ -46,10 +46,10 @@ void	strafe_left(t_game *game)
 }
 
 /**
-  * @brief Strafes player to the right (perpendicular to direction)
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Strafes player to the right (perpendicular to direction)
+ *
+ * @param game Pointer to game structure
+ */
 void	strafe_right(t_game *game)
 {
 	static int	frame_count = 0;

@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
 /**
-  * @brief Rotates camera to the left
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Rotates camera to the left
+ *
+ * @param game Pointer to game structure
+ */
 void	rotate_left(t_game *game)
 {
 	static int	frame_count = 0;
@@ -16,10 +16,10 @@ void	rotate_left(t_game *game)
 }
 
 /**
-  * @brief Rotates camera to the right
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Rotates camera to the right
+ *
+ * @param game Pointer to game structure
+ */
 void	rotate_right(t_game *game)
 {
 	static int	frame_count = 0;
