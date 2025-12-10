@@ -1,13 +1,13 @@
 #include "cub3d.h"
 
 /**
-  * @brief Cleans up all game resources and exits program
-  *
-  * Destroys MLX resources (image, window, display) and frees game data.
-  * Called when user presses ESC or clicks window close button.
-  *
-  * @param game Pointer to game structure
-*/
+ * @brief Cleans up all game resources and exits program
+ *
+ * Destroys MLX resources (image, window, display) and frees game data.
+ * Called when user presses ESC or clicks window close button.
+ *
+ * @param game Pointer to game structure
+ */
 void	cleanup_exit(t_game *game)
 {
 	if (!game)
