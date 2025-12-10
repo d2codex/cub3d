@@ -21,5 +21,6 @@ int	main(int argc, char **argv)
 	setup_hooks(&game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
+	cleanup_exit(&game);
 	return (EXIT_SUCCESS);
 }
