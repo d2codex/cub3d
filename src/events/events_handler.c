@@ -116,7 +116,7 @@ int	handle_close(void *param)
 int	game_loop(void *param)
 {
 	t_game				*game;
-	const t_key_binding	*bindings;
+	t_key_binding		*bindings;
 	int					i;
 
 	game = (t_game *)param;
