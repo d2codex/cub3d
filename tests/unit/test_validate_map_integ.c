@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	print_map_grid(&game.map);
-	if (check_valid_map(&game.map, &game.player) != EXIT_SUCCESS)
+	if (check_valid_map(&game.map) != EXIT_SUCCESS)
 	{
 		printf(RED "[FAIL] check_valid_map\n" RESET);
 		free_map(&game.map);

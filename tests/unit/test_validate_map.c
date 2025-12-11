@@ -19,7 +19,6 @@ void	test_map_valid(void)
 {
 	int			result;
 	t_map		map;
-	t_player	player;
 
 	init_test_map(&map);
 	// writable rows
@@ -31,10 +30,11 @@ void	test_map_valid(void)
 	map.grid = grid;
 	map.height = 4;
 	map.width = 5;
-	// player start somewhere inside
-	player.pos_x = 2.0;
-	player.pos_y = 2.0;
-	result = check_valid_map(&map, &player);
+	printf("%s\n", row0);
+	printf("%s\n", row1);
+	printf("%s\n", row2);
+	printf("%s\n\n", row3);
+	result = check_valid_map(&map);
 	assert(result == EXIT_SUCCESS);
 	printf("test_map_valid OK\n");
 }
@@ -46,7 +46,6 @@ void	test_map_leak(void)
 {
 	int			result;
 	t_map		map;
-	t_player	player;
 
 	init_test_map(&map);
 	char row0[] = "11111";
@@ -57,9 +56,11 @@ void	test_map_leak(void)
 	map.grid = grid;
 	map.height = 4;
 	map.width = 5;
-	player.pos_x = 2.0;
-	player.pos_y = 2.0;
-	result = check_valid_map(&map, &player);
+	printf("%s\n", row0);
+	printf("%s\n", row1);
+	printf("%s\n", row2);
+	printf("%s\n\n", row3);
+	result = check_valid_map(&map);
 	assert(result == EXIT_FAILURE);
 	printf("test_map_leak OK\n");
 }
@@ -71,7 +72,6 @@ void	test_map_invalid_chars(void)
 {
 	int			result;
 	t_map		map;
-	t_player	player;
 
 	init_test_map(&map);
 	char row0[] = "1111";
@@ -81,9 +81,10 @@ void	test_map_invalid_chars(void)
 	map.grid = grid;
 	map.height = 3;
 	map.width = 4;
-	player.pos_x = 1.0;
-	player.pos_y = 1.0;
-	result = check_valid_map(&map, &player);
+	printf("%s\n", row0);
+	printf("%s\n", row1);
+	printf("%s\n\n", row2);
+	result = check_valid_map(&map);
 	assert(result == EXIT_FAILURE);
 	printf("test_map_invalid_chars OK\n");
 }

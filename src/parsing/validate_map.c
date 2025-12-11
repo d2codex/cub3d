@@ -1,33 +1,19 @@
 #include "cub3d.h"
 
 /**
- * @brief Check if a character is valid in the map.
+ * @brief Ensure all map characters are valid ('0', '1', or space).
  *
- * Valid characters are '0', '1', and space (' ').
+ * Iterates the map grid. Prints an error and returns EXIT_FAILURE if any
+ * invalid character is found.
  *
- * @param c The character to check.
- * @return true if valid, false otherwise.
- */
-static bool	is_valid_map_char(char c)
-{
-	if (c == '1' || c == '0' || c == ' ')
-		return (true);
-	return (false);
-}
-
-/**
- * @brief Ensure all characters in the map are valid.
- *
- * Iterates through the map grid and checks each character using
- * is_valid_map_char(). Prints an error if an invalid character is found.
- *
- * @param map Pointer to the map structure.
- * @return EXIT_SUCCESS if all chars are valid, otherwise EXIT_FAILURE.
+ * @param map Pointer to the t_map structure.
+ * @return EXIT_SUCCESS if all characters are valid, else EXIT_FAILURE.
  */
 static int	check_allowed_chars(t_map *map)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
+	char	c;
 
 	y = 0;
 	while (y < map->height)
@@ -35,7 +21,8 @@ static int	check_allowed_chars(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			if (!is_valid_map_char(map->grid[y][x]))
+			c = map->grid[y][x];
+			if (c != '1' && c != '0' && c != ' ')
 			{
 				print_errors("Invalid map chars", NULL, NULL);
 				return (EXIT_FAILURE);
@@ -48,100 +35,128 @@ static int	check_allowed_chars(t_map *map)
 }
 
 /**
- * @brief Perform a flood fill to check if the map is enclosed.
+ * @brief Check if coordinates are within the map boundaries.
  *
- * Recursively marks all reachable '0' tiles starting from (y, x) in the
- * provided grid. Stops at walls ('1') or already visited tiles ('v').
- * If a space (' ') or out-of-bounds is reached, it returns failure.
- * 
- * @note player position floats are truncated to integers for grid indexing
- *
- * @param grid  The temporary map grid to operate on.
- * @param map   Pointer to the map structure.
- * @param y     Starting row for flood fill.
- * @param x     Starting column for flood fill.
- * @return EXIT_SUCCESS if the filled area is enclosed, otherwise EXIT_FAILURE.
+ * @param map Pointer to the map structure.
+ * @param y   Row index to check.
+ * @param x   Column index to check.
+ * @return true if (y, x) is inside the map, false otherwise.
  */
-static int	flood_fill(char **grid, t_map *map, int y, int x)
+static bool	in_bounds(t_map *map, int y, int x)
 {
-	if (y < 0 || y >= map->height || x < 0 || x >= map->width)
-		return (EXIT_FAILURE);
-	if (grid[y][x] == ' ')
-		return (EXIT_FAILURE);
-	if (grid[y][x] == '1' || grid[y][x] == 'v')
-		return (EXIT_SUCCESS);
-	grid[y][x] = 'v';
-	if (flood_fill(grid, map, y + 1, x) == EXIT_FAILURE
-		|| flood_fill(grid, map, y - 1, x) == EXIT_FAILURE
-		|| flood_fill(grid, map, y, x + 1) == EXIT_FAILURE
-		|| flood_fill(grid, map, y, x - 1) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	if (y >= 0 && y < map->height && x >= 0 && x < map->width)
+		return (true);
+	return (false);
+}
+
+/**
+ * @brief Check that a '0' cell is only adjacent to '0' or '1'.
+ *
+ * ny and nx stand for the neighboring cell coordinates. The dir_y and dir_x
+ * tables define the relative positions (up, down, left, right) to check.
+ *
+ * @param map Pointer to the map structure.
+ * @param y   Row index of the '0' cell.
+ * @param x   Column index of the '0' cell.
+ * @return EXIT_SUCCESS if all neighbors are valid, EXIT_FAILURE otherwise.
+ */
+static int	check_zero_adjacent(t_map *map, int y, int x)
+{
+	const int	dir_y[4] = {1, -1, 0, 0};
+	const int	dir_x[4] = {0, 0, 1, -1};
+	int			i;
+	int			ny;
+	int			nx;
+
+	i = 0;
+	while (i < 4)
+	{
+		ny = y + dir_y[i];
+		nx = x + dir_x[i];
+		if (!in_bounds(map, ny, nx))
+		{
+			print_errors("Invalid map: 0 on boarder", NULL, NULL);
+			return (EXIT_FAILURE);
+		}
+		if (map->grid[ny][nx] != '0' && map->grid[ny][nx] != '1' )
+		{
+			print_errors("Invalid map: 0 touches invalid cell", NULL, NULL);
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
 
 /**
- * @brief Create a deep copy of the map grid.
+ * @brief Check that a space cell is not adjacent to a '0' cell.
  *
- * Allocates a new 2D array and duplicates each row of the original map.
- * If any allocation fails, all previously allocated rows are freed
- * and NULL is returned.
+ * ny and nx are the neighboring cell coordinates. dir_y and dir_x define
+ * relative positions (up, down, left, right) to inspect.
  *
- * @param map Pointer to the map structure containing the source grid.
- * @return A newly allocated copy of the map grid, or NULL on failure.
+ * @param map Pointer to the map structure.
+ * @param y   Row index of the space cell.
+ * @param x   Column index of the space cell.
+ * @return EXIT_SUCCESS if all neighbors are valid, EXIT_FAILURE otherwise.
  */
-static char	**copy_map(t_map *map)
+static int	check_space_adjacent(t_map *map, int y, int x)
 {
-	int		row;
-	char	**copy;
+	const int	dir_y[4] = {1, -1, 0, 0};
+	const int	dir_x[4] = {0, 0, 1, -1};
+	int			i;
+	int			ny;
+	int			nx;
 
-	copy = malloc(sizeof(char *) * map->height);
-	if (!copy)
-		return (NULL);
-	row = 0;
-	while (row < map->height)
+	i = 0;
+	while (i < 4)
 	{
-		copy[row] = ft_strdup(map->grid[row]);
-		if (!copy[row])
+		ny = y + dir_y[i];
+		nx = x + dir_x[i];
+		if (in_bounds(map, ny, nx))
 		{
-			while (--row >= 0)
-				free(copy[row]);
-			free(copy);
-			return (NULL);
+			if (map->grid[ny][nx] == '0')
+			{
+				print_errors("Invalid map: space next to 0", NULL, NULL);
+				return (EXIT_FAILURE);
+			}
 		}
-		row++;
+		i++;
 	}
-	return (copy);
+	return (EXIT_SUCCESS);
 }
 
 /**
- * @brief Validate the map by checking chars and running flood fill.
+ * @brief Validate the map by checking all characters and adjacency rules.
  *
- * Duplicates the map, performs flood fill from the player's start position,
- * and ensures the map is enclosed. The original map is never modified.
- * The temporary copy is always freed before returning.
+ * Iterates through the map grid and checks each cell:
+ *  - '0' cells must be surrounded by '0' or '1'.
+ *  - ' ' cells must not touch any '0'.
  *
- * @param map    Pointer to the map structure.
- * @param player Pointer to the player structure.
- * @return EXIT_SUCCESS if valid, otherwise EXIT_FAILURE.
+ * @param map Pointer to the map structure.
+ * @return EXIT_SUCCESS if all checks pass, EXIT_FAILURE otherwise.
  */
-int	check_valid_map(t_map *map, t_player *player)
+int	check_valid_map(t_map *map)
 {
-	char	**tmp;
+	int	y;
+	int	x;
 
 	if (check_allowed_chars(map) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	tmp = copy_map(map);
-	if (!tmp)
+	y = 0;
+	while (y < map->height)
 	{
-		print_errors("debug: malloc failure", NULL, NULL);
-		return (EXIT_FAILURE);
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->grid[y][x] == '0'
+				&& check_zero_adjacent(map, y, x) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+			else if (map->grid [y][x] == ' '
+				&& check_space_adjacent(map, y, x) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+			x++;
+		}
+		y++;
 	}
-	if (flood_fill(tmp, map, player->pos_y, player->pos_x) == EXIT_FAILURE)
-	{
-		print_errors("map not fully enclosed", NULL, NULL);
-		free_map_copy(tmp, map->height);
-		return (EXIT_FAILURE);
-	}
-	free_map_copy(tmp, map->height);
 	return (EXIT_SUCCESS);
 }

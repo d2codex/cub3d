@@ -33,7 +33,7 @@ int	load_and_validate_map(char *path, t_game *game)
 		free_map(&game->map);
 		return (EXIT_FAILURE);
 	}
-	if (check_valid_map(&game->map, &game->player) != EXIT_SUCCESS)
+	if (check_valid_map(&game->map) != EXIT_SUCCESS)
 	{
 		free_map(&game->map);
 		return (EXIT_FAILURE);
