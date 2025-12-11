@@ -71,6 +71,5 @@ deepclean: fclean
 	$(MAKE) -C $(MLX_DIR) clean
 
 # Build a single test
-# Usage: make run TEST=unit/test_name.c
-run: $(BIN_DIR)/$(basename $(notdir $(TEST)))
-	./$(BIN_DIR)/$(basename $(notdir $(TEST)))
+# Usage: make build TEST=unit/test_name.c
+build: $(BIN_DIR)/$(basename $(notdir $(TEST)))

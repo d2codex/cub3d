@@ -23,6 +23,11 @@
 # define EXTENSION_FILENAME "Filename extension is invalid. Expected: .cub"
 # define HIDDEN_FILENAME "Filename can't be a hidden file"
 # define MAP_DIMENSIONS "Invalid map dimensions"
+# define MAP_TOO_LARGE "Map too large (max 500 x 500)"
+# define MAP_CHAR "Invalid character in map"
+# define MAP_ZERO_BORDER "Map not closed: 0 on border"
+# define MAP_ZERO_INVALID "Map not closed: 0 adjacent to invalid cell"
+# define MAP_SPACE "Map not closed: space adjacent to walkable area"
 # define LOAD_MAP "Failed to load map grid"
 # define NULL_TGAME "Invalid t_game structure pointer"
 # define MLX_INIT "Initialization of the MLX connection failed"
@@ -33,6 +38,8 @@
 /* map constants */
 # define PLAYER "NSEW"
 # define TILE_CENTER_OFFSET 0.5
+# define MAX_MAP_W 500
+# define MAX_MAP_H 500
 
 /* game elements */
 # define WINDOWS_X 800
@@ -159,6 +166,7 @@ void			strafe_right(t_game *game);
 
 /* init_data.c */
 void			init_data(t_game *game);
+int				load_and_validate_map(char *path, t_game *game);
 
 /* init_mlx.c */
 int				init_game_data(t_game *game);
@@ -178,12 +186,16 @@ int				open_cub_file(const char *path);
 void			print_map_grid(t_map *map);
 void			free_map(t_map *map);
 void			free_partial_grid(t_map *map, int filled_rows);
+void			free_map_copy(char **grid, int map_height);
 
 /* player_setup_utils.c */
 void			print_player_info(t_player *player);
 
 /* player_setup.c */
 int				init_player(t_game *game);
+
+/* validate_map.c */
+int				check_valid_map(t_map *map);
 
 /* =========================== */
 /*           RENDERS           */

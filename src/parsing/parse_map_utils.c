@@ -105,3 +105,24 @@ void	free_partial_grid(t_map *map, int filled_rows)
 	free(map->grid);
 	map->grid = NULL;
 }
+
+/**
+ * @brief Free a copied map grid.
+ *
+ * Frees each row of the grid and then the grid itself.
+ *
+ * @param grid       The 2D map array to free.
+ * @param map_height The number of rows in the grid.
+ */
+void	free_map_copy(char **grid, int map_height)
+{
+	int	i;
+
+	i = 0;
+	while (i < map_height)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
+}
