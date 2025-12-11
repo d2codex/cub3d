@@ -78,7 +78,7 @@ static int	check_zero_adjacent(t_map *map, int y, int x)
 			print_errors("Invalid map: 0 on boarder", NULL, NULL);
 			return (EXIT_FAILURE);
 		}
-		if (map->grid[ny][nx] != '0' && map->grid[ny][nx] != '1' )
+		if (map->grid[ny][nx] != '0' && map->grid[ny][nx] != '1')
 		{
 			print_errors("Invalid map: 0 touches invalid cell", NULL, NULL);
 			return (EXIT_FAILURE);
@@ -151,7 +151,7 @@ int	check_valid_map(t_map *map)
 			if (map->grid[y][x] == '0'
 				&& check_zero_adjacent(map, y, x) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
-			else if (map->grid [y][x] == ' '
+			else if (map->grid[y][x] == ' '
 				&& check_space_adjacent(map, y, x) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 			x++;
