@@ -61,10 +61,19 @@ typedef struct s_map
 							// used to loop over the map safely
 	char	*no_path;		// file path for north wall texture (from .cub file)
 	char	*so_path;		// file path for south wall texture
-	char	*we_path;		// file path for west wall texture
 	char	*ea_path;		// file path for east wall texture
+	char	*we_path;		// file path for west wall texture
 	int		floor_color;	// rgb color for the floor, converted to int (0xRRGGBB)
 	int		ceiling_color;	// rgb color for the ceiling, converted to int (0xRRGGBB)
+	// make sure there is only one of each in the .cub file
+	bool	no_set;
+	bool	so_set;
+	bool	ea_set;
+	bool	we_set;
+	bool	floor_set;
+	bool	ceiling_set;
+	// keeps track of where the map lines start
+	int		map_start_line;
 }	t_map;
 
 /* Tracks which keys are currently pressed */
@@ -182,11 +191,11 @@ int				validate_argument(char *filename);
 int				parse_map(const char *path, t_map *map);
 
 /*parse_map_utils.c */
+int				max_int(int a, int b);
 int				open_cub_file(const char *path);
 void			print_map_grid(t_map *map);
 void			free_map(t_map *map);
 void			free_partial_grid(t_map *map, int filled_rows);
-void			free_map_copy(char **grid, int map_height);
 
 /* player_setup_utils.c */
 void			print_player_info(t_player *player);
