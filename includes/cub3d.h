@@ -45,6 +45,9 @@
 # define WINDOWS_X 800
 # define WINDOWS_Y 600
 # define WINDOWS_MSG "Welcome to CUB3D"
+// movement speed constant (units per frame)
+// smaller = slower, larger = faster
+# define MOVE_SPEED 0.05
 
 /* =========================== */
 /*        STRUCTURES           */
@@ -112,7 +115,7 @@ typedef struct s_game
 	int			last_mouse_y;	// last mouse Y position for delta calculation
 }	t_game;
 
-/* player orientation struct for the look up table */
+/* Player orientation struct for the look up table */
 typedef struct s_orientation
 {
 	char	c;
@@ -122,13 +125,29 @@ typedef struct s_orientation
 	double	plane_y;
 }	t_orientation;
 
-/* key binding struct for mapping keys to actions */
+/* Key binding struct for mapping keys to actions */
 typedef struct s_key_binding
 {
 	int		keycode; // X11 keycode for this specific key (ex: XK_w, XK_Left)
 	void	(*action)(t_game *); // function pointer to the action that should be executed
 	bool	*flag_ptr;  // Pointer to the boolean flag that represents whether this key is currently pressed (true) or released (false)
 }	t_key_binding;
+
+/* Ray structure for raycasting calculation */
+typedef struct s_ray
+{
+	double	dir_x;			// X component of ray direction
+	double	dir_y;			// Y component of ray direction
+	int		map_x;			// Current grid X coordinate
+	int		map_y;			// Current grid Y coordinate
+	double	side_dist_x;	// Distance ray travels to next X grid line
+	double	side_dist_y;	// Distance ray travels to next Y grid line
+	double	delta_dist_x;	// Distance between X grid lines along ray
+	double	delta_dist_y;	// Distance between Y grid lines along ray
+	int		step_x;			// Step direction in X (either +1 or -1)
+	int		step_y;			// Step direction in Y (either +1 or -1)
+	int		side;			// Was wall hit on X-side (0) or Y-side (1)?
+}	t_ray;
 
 /* =========================== */
 /*           EVENT             */
@@ -203,6 +222,16 @@ int				check_valid_map(t_map *map);
 
 /* draw_pixels.c*/
 void			draw_pixel_in_buffer(t_game *game, int x, int y, int color);
+
+/* =========================== */
+/*         RAYCASTING          */
+/* =========================== */
+
+/* dda.c */
+double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y);
+
+/* simple_ray.c */
+void			render_single_ray(t_game *game);
 
 /* =========================== */
 /*           UTILS             */
