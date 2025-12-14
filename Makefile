@@ -39,6 +39,8 @@ SRC =	src/main.c \
 		src/parsing/parse_map.c \
 		src/parsing/parse_map_utils.c \
 		src/render/draw_pixels.c \
+		src/raycast/dda.c \
+		src/raycast/simple_ray.c \
 		src/parsing/player_setup.c \
 		src/parsing/player_setup_utils.c \
 		src/parsing/validate_map.c \
