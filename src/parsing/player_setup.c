@@ -38,7 +38,7 @@ static bool	is_player(char c)
  *
  * @return Pointer to a static array of 4 t_orientation elements.
  */
-static const t_orientation	*get_orientation(void)
+static const t_orientation	*get_orientation(size_t *count)
 {
 	static const t_orientation	orient[4] = {
 	{'N', 0.0, -1.0, 0.66, 0.0},
@@ -47,6 +47,8 @@ static const t_orientation	*get_orientation(void)
 	{'W', -1.0, 0.0, 0.0, -0.66},
 	};
 
+	if (count)
+		*count = sizeof(orient) / sizeof(orient[0]);
 	return (orient);
 }
 
@@ -66,16 +68,16 @@ static const t_orientation	*get_orientation(void)
  */
 static void	set_player_position(t_game *game, int y, int x)
 {
-	int					i;
+	size_t				i;
 	char				c;
 	const t_orientation	*orient;
 
 	c = game->map.grid[y][x];
 	game->player.pos_x = x + TILE_CENTER_OFFSET;
 	game->player.pos_y = y + TILE_CENTER_OFFSET;
-	orient = get_orientation();
+	orient = get_orientation(&count);
 	i = 0;
-	while (i < 4)
+	while (i < count)
 	{
 		if (orient[i].c == c)
 		{

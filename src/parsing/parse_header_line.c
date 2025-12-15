@@ -1,20 +1,37 @@
 #include "cub3d.h"
 
-static t_header_type	get_identifier(const char *line)
+static const t_header_entry	*get_header_table(size_t *count)
 {
-	if (!ft_strncmp(line, "NO", 2))
-		return (ID_NO);
-	if (!ft_strncmp(line, "SO", 2))
-		return (ID_SO);
-	if (!ft_strncmp(line, "WE", 2))
-		return (ID_WE);
-	if (!ft_strncmp(line, "EA", 2))
-		return (ID_EA);
-	if (!ft_strncmp(line, "F", 1))
-		return (ID_FLOOR);
-	if (!ft_strncmp(line, "C", 1))
-		return (ID_CEILING);
-	return (ID_NONE);
+	static const t_header_entry	header[] = {
+	{"NO", ID_NO, 2},
+	{"SO", ID_SO, 2},
+	{"WE", ID_WE, 2},
+	{"EA", ID_EA, 2},
+	{"F", ID_FLOOR, 1},
+	{"C", ID_CEILING, 1},
+	};
+
+	if (count)
+		*count = sizeof(headers) / sizeof(headers[0]);
+	return (header_entry);
+}
+
+static t_header_type	*get_header_entry(const char *line)
+{
+	size_t					i;
+	size_t					count;
+	const t_header_entry	*entries;
+
+	entries = get_header_table(&count);
+	i = 0;
+	while (i < count)
+	{
+		if (!ft_strncmp(line, entries[i].key, entries[i].len)
+			&& ft_isspace(line[entries[i].len]))
+			return (&entries[i]);
+		i++;
+	}
+	return (NULL);
 }
 
 static int	parse_header_value(t_map *map, const char *value, t_header_type id)
@@ -49,21 +66,18 @@ static int	parse_header_value(t_map *map, const char *value, t_header_type id)
 int	parse_header_line(t_map *map, char *line)
 {
 	int				i;
-	t_header_type	id;
+	t_header_type	*entry;
 
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	id = get_identifier(&line[i]);
-	if (id == ID_NONE)
+	entry = get_header_entry(line + i);
+	if (!entry)
 		return (EXIT_FAILURE);
-	if (id == ID_FLOOR || id == ID_CEILING)
-		i += 1;
-	else
-		i += 2;
+	i += entry->len;
 	if (!ft_isspace(line[i]))
 		return (EXIT_FAILURE);
-	if (parse_header_value(map, line + i, id) == EXIT_FAILURE)
+	if (parse_header_value(map, line + i, entry->id) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

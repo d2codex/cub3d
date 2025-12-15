@@ -133,6 +133,14 @@ typedef struct s_orientation
 	double	plane_y;
 }	t_orientation;
 
+/* header lines look up table */
+typedef struct e_header_entry
+{
+	const char		*key;
+	t_header_type	id;
+	size_t			len;
+}	t_header_entry;
+
 /* key binding struct for mapping keys to actions */
 typedef struct s_key_binding
 {
