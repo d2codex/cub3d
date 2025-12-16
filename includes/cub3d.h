@@ -49,7 +49,7 @@
 
 /* RGB/color related errors */
 # define RGB_SPLIT_FAIL "RGB: split failed"
-# define RGB_INVALID_VALUE "RGB: invalid value"
+# define RGB_INVALID_FORMAT "RGB: exactly 3 components ranged 0-255 required"
 # define RGB_TOO_MANY "RGB: Too many values. Expected: 3"
 
 /* MLX errors */
@@ -76,19 +76,6 @@
 /*        STRUCTURES           */
 /* =========================== */
 
-/* map structure - stores parsed .cub file data */
-typedef struct s_map
-{
-	char	**grid;			// 2d char array representing map layout
-	int		width;			// map width (max number of columns)
-	int		height;			// map height (number of lines)
-	int		floor_color[RGB_SIZE];
-	int		ceiling_color[RGB_SIZE];
-	char	*tex_paths[TEX_COUNT];
-	bool	id_set[HEADER_COUNT];
-	int		map_start_line; //where map lines start
-}	t_map;
-
 typedef enum e_header_type
 {
 	ID_NONE = -1,
@@ -100,6 +87,19 @@ typedef enum e_header_type
 	ID_CEILING = 5,
 	HEADER_SIZE = 6
 }	t_header_type;
+
+/* map structure - stores parsed .cub file data */
+typedef struct s_map
+{
+	char	**grid;			// 2d char array representing map layout
+	int		width;			// map width (max number of columns)
+	int		height;			// map height (number of lines)
+	int		floor_color[RGB_SIZE];
+	int		ceiling_color[RGB_SIZE];
+	char	*tex_paths[TEX_SIZE];
+	bool	id_set[HEADER_SIZE];
+	int		map_start_line; //where map lines start
+}	t_map;
 
 /* Tracks which keys are currently pressed */
 typedef struct s_keys
@@ -218,7 +218,7 @@ int				init_game_data(t_game *game);
 int				validate_argument(char *filename);
 
 /* header_table.c */
-t_header_type	get_header_entry(const char *line);
+const t_header_entry	*get_header_entry(const char *line);
 
 /* parse_color.c */
 int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
