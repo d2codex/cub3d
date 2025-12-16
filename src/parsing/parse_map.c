@@ -21,7 +21,7 @@ static int	get_map_dimensions(const char *path, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (line_index >= map->map_start_line)
+		if (i >= map->map_start_line)
 		{
 			len = ft_strlen(line);
 			map->width = max_int(map->width, len);
@@ -78,7 +78,7 @@ static char	*pad_line(const char *row, int width)
 static int	store_map_line(t_map *map, int i, int *y, char *line)
 {
 	if (i < map->map_start_line)
-		return (EXIT_SUCCESS) //skip header lines
+		return (EXIT_SUCCESS); //skip header lines
 	map->grid[*y] = pad_line(line, map->width);
 	if (!map->grid[*y])
 	{
@@ -119,7 +119,7 @@ static int	load_map_grid(const char *path, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (store_map_line(map, i, &y, line, fd) == EXIT_FAILURE)
+		if (store_map_line(map, i, &y, line) == EXIT_FAILURE)
 			return (free(line), close(fd), EXIT_FAILURE);
 		free(line);
 		i++;
