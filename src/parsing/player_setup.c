@@ -70,6 +70,7 @@ static void	set_player_position(t_game *game, int y, int x)
 {
 	size_t				i;
 	char				c;
+	size_t				count;
 	const t_orientation	*orient;
 
 	c = game->map.grid[y][x];
