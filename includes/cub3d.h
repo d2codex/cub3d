@@ -38,11 +38,13 @@
 # define IMG_INIT "Initialization of the MLX image buffer failed"
 # define IMG_DATA "Retrieving IMG data failed"
 
-/* map constants */
+/* map and header constants */
 # define PLAYER "NSEW"
 # define TILE_CENTER_OFFSET 0.5
 # define MAX_MAP_W 500
 # define MAX_MAP_H 500
+# define RGB_SIZE 3
+# define TEX_SIZE 4
 
 /* game elements */
 # define WINDOWS_X 800
@@ -59,10 +61,10 @@ typedef struct s_map
 	char	**grid;			// 2d array of chars that represents the map layout
 	int		width;			// width of the map (max number of columns)
 	int		height;			// height of the map (number of lines)
-	int		floor_color[3];	// rgb color for the floor, converted to int (0xRRGGBB)
-	int		ceiling_color[3];	// rgb color for the ceiling, converted to int (0xRRGGBB)
-	char	*tex_paths[4];
-	bool	id_set[6];
+	int		floor_color[RGB_SIZE];	// rgb color for the floor, converted to int (0xRRGGBB)
+	int		ceiling_color[RGB_SIZE];	// rgb color for the ceiling, converted to int (0xRRGGBB)
+	char	*tex_paths[TEX_COUNT];
+	bool	id_set[HEADER_COUNT];
 	// keeps track of where the map lines start
 	int		map_start_line;
 }	t_map;
@@ -75,7 +77,8 @@ typedef enum e_header_type
 	ID_WE = 2,
 	ID_EA = 3,
 	ID_FLOOR = 4,
-	ID_CEILING = 5
+	ID_CEILING = 5,
+	HEADER_SIZE = 6
 }	t_header_type;
 
 /* Tracks which keys are currently pressed */
@@ -197,6 +200,18 @@ int				init_game_data(t_game *game);
 /* file_validations.c */
 int				validate_argument(char *filename);
 
+/* header_table.c */
+t_header_type	get_header_entry(const char *line);
+
+/* parse_color.c */
+int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
+
+/* parse_header.c */
+int				parse_header(const char *path, t_map *map);
+
+/* parse_header_line.c */
+int				parse_header_line(t_map *map, char *line);
+
 /*parse_map.c */
 int				parse_map(const char *path, t_map *map);
 
@@ -207,11 +222,11 @@ void			print_map_grid(t_map *map);
 void			free_map(t_map *map);
 void			free_partial_grid(t_map *map, int filled_rows);
 
-/* player_setup_utils.c */
-void			print_player_info(t_player *player);
-
 /* player_setup.c */
 int				init_player(t_game *game);
+
+/* player_setup_utils.c */
+void			print_player_info(t_player *player);
 
 /* validate_map.c */
 int				check_valid_map(t_map *map);
