@@ -116,9 +116,10 @@ static double	calculate_wall_distance(t_ray *ray)
  * @param game Pointer to the game structure
  * @param ray_dir_x X component of the ray direction
  * @param ray_dir_y Y component of the ray direction
+ * @param side Pointer to store which side was hit (0=X-side/vertical, 1=Y-side/horizontal)
  * @return The perpendicular distance to the wall
  */
-double	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y)
+double	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y, int *side)
 {
 	t_ray	ray;
 
@@ -133,6 +134,8 @@ double	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y)
 	calculate_side_dist(&ray, game->player.pos_x, game->player.pos_y);
 	// Perform DDA to find wall
 	perform_dda(game, &ray);
+	// Store which side was hit
+	*side = ray.side;
 	// Calculate and return perpendicular wall distance
 	return (calculate_wall_distance(&ray));
 }

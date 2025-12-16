@@ -50,8 +50,9 @@ void	render_single_ray(t_game *game)
 	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	int		side;
 
-	wall_distance = cast_ray(game, game->player.dir_x, game->player.dir_y);
+	wall_distance = cast_ray(game, game->player.dir_x, game->player.dir_y, &side);
 	line_height = (int)(WINDOWS_Y / wall_distance);
 	draw_start = (WINDOWS_Y - line_height) / 2;
 	draw_end = draw_start + line_height - 1;

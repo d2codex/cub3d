@@ -228,7 +228,7 @@ void			draw_pixel_in_buffer(t_game *game, int x, int y, int color);
 /* =========================== */
 
 /* dda.c */
-double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y);
+double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y, int *side);
 
 /* simple_ray.c */
 void			render_single_ray(t_game *game);
