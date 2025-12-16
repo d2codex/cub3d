@@ -7,19 +7,6 @@ static void	next_line(char **line, int fd, int *i)
 	(*i)++;
 }
 
-static bool	skip_empty_lines(char **line, int fd, int *i)
-{
-	while (*line && line_is_empty(*line))
-	{
-		free(*line);
-		*line = get_next_line(fd);
-		(*i)++;
-	}
-	if (*line == NULL)
-		return (false);
-	return (true);
-}
-
 static bool	line_is_empty(char *line)
 {
 	int	i;
@@ -34,12 +21,25 @@ static bool	line_is_empty(char *line)
 	return (true);
 }
 
+static bool	skip_empty_lines(char **line, int fd, int *i)
+{
+	while (*line && line_is_empty(*line))
+	{
+		free(*line);
+		*line = get_next_line(fd);
+		(*i)++;
+	}
+	if (*line == NULL)
+		return (false);
+	return (true);
+}
+
 static bool	all_headers_set(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	while (i < HEADER_COUNT)
+	while (i < HEADER_SIZE)
 	{
 		if (map->id_set[i] == false)
 			return (false);
