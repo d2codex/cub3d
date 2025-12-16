@@ -58,15 +58,14 @@
 /* map structure - stores parsed .cub file data */
 typedef struct s_map
 {
-	char	**grid;			// 2d array of chars that represents the map layout
-	int		width;			// width of the map (max number of columns)
-	int		height;			// height of the map (number of lines)
-	int		floor_color[RGB_SIZE];	// rgb color for the floor, converted to int (0xRRGGBB)
-	int		ceiling_color[RGB_SIZE];	// rgb color for the ceiling, converted to int (0xRRGGBB)
+	char	**grid;			// 2d char array representing map layout
+	int		width;			// map width (max number of columns)
+	int		height;			// map height (number of lines)
+	int		floor_color[RGB_SIZE];
+	int		ceiling_color[RGB_SIZE];
 	char	*tex_paths[TEX_COUNT];
 	bool	id_set[HEADER_COUNT];
-	// keeps track of where the map lines start
-	int		map_start_line;
+	int		map_start_line; //where map lines start
 }	t_map;
 
 typedef enum e_header_type
