@@ -26,7 +26,10 @@ t_header_type	*get_header_entry(const char *line)
 	{
 		if (!ft_strncmp(line, entries[i].key, entries[i].len)
 			&& ft_isspace(line[entries[i].len]))
+		{
+			print_errors("Invalid header identifier", NULL, NULL);
 			return (&entries[i]);
+		}
 		i++;
 	}
 	return (NULL);
