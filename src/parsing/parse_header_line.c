@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static bool	check_file_access(const char *filename)
+static bool	validate_texture_file(const char *filename)
 {
 	int	fd;
 
@@ -25,9 +25,8 @@ static int	set_texture_path(t_map *map, t_header_type id, const char *path)
 		free(trimmed_value);
 		return (EXIT_FAILURE);
 	}
-	if (!check_file_access(trimmed_value))
+	if (!validate_texture_file(trimmed_value))
 	{
-		print_errors("cannot open file:", trimmed_value, NULL);
 		free(trimmed_value);
 		return (EXIT_FAILURE);
 	}
