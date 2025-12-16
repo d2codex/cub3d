@@ -1,63 +1,69 @@
 #include "cub3d.h"
 
-static const t_header_entry	*get_header_table(size_t *count)
+static bool	check_file_access(const char *filename)
 {
-	static const t_header_entry	header[] = {
-	{"NO", ID_NO, 2},
-	{"SO", ID_SO, 2},
-	{"WE", ID_WE, 2},
-	{"EA", ID_EA, 2},
-	{"F", ID_FLOOR, 1},
-	{"C", ID_CEILING, 1},
-	};
+	int	fd;
 
-	if (count)
-		*count = sizeof(headers) / sizeof(headers[0]);
-	return (header_entry);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error\nopen");
+		return (false);
+	}
+	close(fd);
+	return (true);
 }
 
-static t_header_type	*get_header_entry(const char *line)
+static int	set_texture_path(t_map *map, t_header_type id, const char *path)
 {
-	size_t					i;
-	size_t					count;
-	const t_header_entry	*entries;
+	char	*trimmed_value;
 
-	entries = get_header_table(&count);
-	i = 0;
-	while (i < count)
+	trimmed_value = ft_strtrim(path, " \t\n");
+	if (!trimmed_value || trimmed_value[0] == '\0')
 	{
-		if (!ft_strncmp(line, entries[i].key, entries[i].len)
-			&& ft_isspace(line[entries[i].len]))
-			return (&entries[i]);
-		i++;
+		print_errors("ft_strtrim fail", NULL, NULL);
+		free(trimmed_value);
+		return (EXIT_FAILURE);
 	}
-	return (NULL);
+	if (!check_file_access(trimmed_value))
+	{
+		print_errors("cannot open file:", trimmed_value, NULL);
+		free(trimmed_value);
+		return (EXIT_FAILURE);
+	}
+	map->tex_paths[id] = trimmed_value; //need to free prs later
+	return (EXIT_SUCCESS);
+}
+
+static int	set_rgb_color(t_map *map, t_heaer_type id, const char *value)
+{
+	int	*rgb_values;
+
+	if (id == ID_FLOOR)
+		rgb_values = map->floor_color;//point to first value of array
+	else
+		rgb_values = map->ceiling_color;
+	if (parse_rgb(value, rgb_values) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 static int	parse_header_value(t_map *map, const char *value, t_header_type id)
 {
 	char	*trimmed_value;
-	int		*target_color;
+	int		*rgb_values;
 
 	if (map->id_set[id] == true)
 		return (print_errors("duplicate identifier"), EXIT_FAILURE);
-	trimmed_value = ft_strtrim(value, " \t\n");
-	if (!trimmed_value || trimmed_value[0] == '\0')
-		return (free(trimmed_value), EXIT_FAILURE);
 	if (id >= ID_NO && id <= ID_EA)
-		map->tex_paths[id] = trimmed_value; //pointers will need to be freed eventually
+	{
+		if (set_texture_path(map, id, value) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
 	else
 	{
-		if (id == ID_FLOOR)
-			target_color = map->floor_color;
-		else
-			target_color = map->ceiling_color;
-		if (parse_rgb(trimmed_value, target_color) == EXIT_FAILURE)
-		{
-			print_errors("rgb");
-			return (free(trimmed_value), EXIT_FAILURE);
-		}
-		free(trimmed_value);
+		if (set_rgb_color(map, id, value) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	}
 	map->id_set[id] = true;
 	return (EXIT_SUCCESS);
