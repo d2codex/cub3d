@@ -1,3 +1,23 @@
+/**
+ * @file test_parse_rgb.c
+ * @brief Unit tests for parse_rgb() function.
+ *
+ * This program tests parse_rgb() with various valid and invalid
+ * RGB input strings, checking proper parsing and error handling.
+ * Each test prints the input, expected result, and actual result.
+ *
+ * Usage:
+ *   Build: make build TEST=unit/test_parse_rgb.c
+ *   Run:   ./bin/test_parse_rgb
+ *
+ * The tests cover:
+ *   - Normal valid inputs
+ *   - Edge values (0, 255)
+ *   - Values out of range (<0, >255)
+ *   - Too few or too many components
+ *   - Non-integer or empty input
+ *   - Inputs with extra whitespace
+ */
 #include "cub3d.h"
 #include <assert.h>
 #include <stdio.h>
