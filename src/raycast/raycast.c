@@ -98,13 +98,13 @@ static void	cast_column_ray(t_game *game, int x)
 }
 
 /**
-  * @brief Renders a complete frame with full raycasting
-  *
-  * Main rendering loop that casts one ray per screen column
-  * (WINDOWS_X rays total).
-  *
-  * @param game Pointer to the game structure
-*/
+ * @brief Renders a complete frame with full raycasting
+ *
+ * Main rendering loop that casts one ray per screen column
+ * (WINDOWS_X rays total).
+ *
+ * @param game Pointer to the game structure
+ */
 void	render_frame(t_game *game)
 {
 	int		x;
