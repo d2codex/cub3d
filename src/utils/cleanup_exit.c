@@ -19,7 +19,7 @@ void	free_t_map(t_map *map)
 		return ;
 	free_map_grid(map);
 	i = 0;
-	while (i < HEADER_SIZE)
+	while (i < TEX_SIZE)
 	{
 		if (map->tex_paths[i])
 		{
