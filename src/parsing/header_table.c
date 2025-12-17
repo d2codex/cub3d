@@ -25,10 +25,7 @@ const t_header_entry	*get_header_entry(const char *line)
 	{
 		if (!ft_strncmp(line, entries[i].key, entries[i].len)
 			&& ft_isspace(line[entries[i].len]))
-		{
-			print_errors(HEADER_INVALID, NULL, NULL);
 			return (&entries[i]);
-		}
 		i++;
 	}
 	return (NULL);
