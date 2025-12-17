@@ -29,6 +29,7 @@ INC_DIR = -Iincludes -I$(LIBFT_DIR)/includes -I$(MLX_DIR)
 SRC =	src/main.c \
 		src/events/cleanup_exit.c \
 		src/events/events_handler.c \
+		src/events/game_loop.c \
 		src/events/hooks.c \
 		src/events/player_actions_rotate.c \
 		src/events/player_actions_move.c \
@@ -40,7 +41,7 @@ SRC =	src/main.c \
 		src/parsing/parse_map_utils.c \
 		src/render/draw_pixels.c \
 		src/raycast/dda.c \
-		src/raycast/simple_ray.c \
+		src/raycast/raycast.c \
 		src/parsing/player_setup.c \
 		src/parsing/player_setup_utils.c \
 		src/parsing/validate_map.c \
