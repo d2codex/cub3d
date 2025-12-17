@@ -6,7 +6,7 @@
  * Executes the main rendering pipeline:
  * 1. Processes input - checks which keys are pressed and executes actions
  * 2. Clears the window - prevents trailing artifacts from previous frame
- * 3. Renders the scene - casts WINDOW_X rays (one per screen column)
+ * 3. Renders the scene - casts WINDOWS_X rays (one per screen column)
  * 4. Displays the result - pushes image buffer to window
  *
  * @param param Pointer to game structure (void* from MLX, must cast)
