@@ -245,6 +245,9 @@ void			draw_pixel_in_buffer(t_game *game, int x, int y, int color);
 double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y,
 		int *side);
 
+/* dda_utils.c */
+bool			check_hit(t_game *game, t_ray *ray);
+
 /* raycast.c */
 void			render_frame(t_game *game);
 

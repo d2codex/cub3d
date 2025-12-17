@@ -65,10 +65,10 @@ static void	calculate_side_dist(t_ray *ray, double pos_x, double pos_y)
  */
 static void	perform_dda(t_game *game, t_ray *ray)
 {
-	int	hit;
+	bool	hit;
 
-	hit = 0;
-	while (hit == 0)
+	hit = false;
+	while (!hit)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -82,8 +82,7 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map.grid[ray->map_y][ray->map_x] == '1')
-			hit = 1;
+		hit = check_hit(game, ray);
 	}
 }
 
