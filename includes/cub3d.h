@@ -42,16 +42,29 @@
 # define MAX_MAP_H 500
 
 /* game elements */
-# define WINDOWS_X 800
-# define WINDOWS_Y 600
+# define WINDOWS_X 1920
+# define WINDOWS_Y 1080
 # define WINDOWS_MSG "Welcome to CUB3D"
 // movement speed constant (units per frame)
 // smaller = slower, larger = faster
 # define MOVE_SPEED 0.05
+// rotation speed in radians per frame
+# define ROT_SPEED 0.05
+// mouse sensitivity for rotation (radians per pixel)
+# define MOUSE_SENSITIVITY 0.00005
 
 /* =========================== */
 /*        STRUCTURES           */
 /* =========================== */
+
+/* Wall direction enumeration for raycasting */
+typedef enum e_wall_dir
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3
+}	t_wall_dir;
 
 /* map structure - stores parsed .cub file data */
 typedef struct s_map
@@ -165,6 +178,7 @@ t_key_binding	*get_key_bindings(t_game *game);
 
 /* mouse_handler.c */
 int				handle_mouse_move(int x, int y, void *param);
+void			apply_camera_rotation(t_game *game, double angle);
 
 /* hooks.c */
 void			setup_hooks(t_game *game);
@@ -228,10 +242,8 @@ void			draw_pixel_in_buffer(t_game *game, int x, int y, int color);
 /* =========================== */
 
 /* dda.c */
-double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y, int *side);
-
-/* simple_ray.c */
-void			render_single_ray(t_game *game);
+double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y,
+		int *side);
 
 /* raycast.c */
 void			render_frame(t_game *game);
