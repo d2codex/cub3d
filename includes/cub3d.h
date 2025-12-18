@@ -39,8 +39,8 @@
 
 /* header parsing errors */
 # define HEADER_DUPLICATE "Duplicate header identifier"
-# define HEADER_INVALID "Invalid header identifier"
-# define HEADER_MISSING "Missing headers"
+# define HEADER_MISSING "Missing headers. Expected: 6"
+# define HEADER_TOO_MANY "Too many headers. Expected: 6"
 
 /* Texture-related errors */
 # define TEXTURE_TRIM_FAIL "Texture path trim failed"
@@ -215,14 +215,17 @@ int				init_game_data(t_game *game);
 /*         PARSING             */
 /* =========================== */
 
+/* check_headers.c */
+int				check_header_count(const char *path);
+
 /* file_validations.c */
 int				validate_argument(char *filename);
 
 /* header_table.c */
 const t_header_entry	*get_header_entry(const char *line);
 
-/* parse_color.c */
-int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
+/* header_utils.c */
+bool			line_is_empty(char *line);
 
 /* parse_header.c */
 int				parse_header(const char *path, t_map *map);
@@ -239,6 +242,9 @@ int				open_cub_file(const char *path);
 void			print_map_grid(t_map *map);
 void			free_map_grid(t_map *map);
 void			free_partial_grid(t_map *map, int filled_rows);
+
+/* parse_rgb.c */
+int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
 
 /* player_setup.c */
 int				init_player(t_game *game);
