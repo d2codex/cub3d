@@ -34,6 +34,7 @@ SRC =	src/main.c \
 		src/events/player_actions_rotate.c \
 		src/init/init_data.c \
 		src/init/init_mlx.c \
+		src/parsing/check_headers.c \
 		src/parsing/file_validations.c \
 		src/parsing/header_table.c \
 		src/parsing/parse_rgb.c \
