@@ -7,20 +7,6 @@ static void	next_line(char **line, int fd, int *i)
 	(*i)++;
 }
 
-static bool	line_is_empty(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_isspace(line[i]))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 static bool	skip_empty_lines(char **line, int fd, int *i)
 {
 	while (*line && line_is_empty(*line))
@@ -48,6 +34,16 @@ static bool	all_headers_set(t_map *map)
 	return (true);
 }
 
+static bool	set_map_start_line(t_map *map, char **line, int fd, int *i)
+{
+	if (!all_headers_set(map))
+		return (false);
+	if (!skip_empty_lines(line, fd, i))
+		return (false);
+	map->map_start_line = (*i);
+	return (true);
+}
+
 int	parse_header(const char *path, t_map *map)
 {
 	int		i;
@@ -58,23 +54,21 @@ int	parse_header(const char *path, t_map *map)
 	if (fd < 0)
 		return (EXIT_FAILURE);
 	line = get_next_line(fd);
-	i = 0;
+	i = 1;
 	while (line)
 	{
 		if (!skip_empty_lines(&line, fd, &i))
-			return (close(fd), EXIT_FAILURE);
+			return (gnl_clear_fd(fd), close(fd), EXIT_FAILURE);
 		if (parse_header_line(map, line) == EXIT_FAILURE)
-			return (free(line), close(fd), EXIT_FAILURE);
-		if (all_headers_set(map))
+			return (gnl_clear_fd(fd), free(line), close(fd), EXIT_FAILURE);
+		next_line(&line, fd, &i);
+		if (set_map_start_line(map, &line, fd, &i))
 		{
-			map->map_start_line = i + 1;
 			free(line);
 			break ;
 		}
-		next_line(&line, fd, &i);
 	}
-	// for debug , can delete later to save some lines
-	if (!all_headers_set(map))
-		return (print_errors(HEADER_MISSING, NULL, NULL), EXIT_FAILURE);
-	return (close(fd), EXIT_SUCCESS);
+	gnl_clear_fd(fd);
+	close(fd);
+	return (EXIT_SUCCESS);
 }
