@@ -52,6 +52,9 @@
 # define WINDOWS_MSG "Welcome to CUB3D"
 // minimum wall distance to prevent division by zero in projection
 # define MIN_WALL_DISTANCE 0.001
+// raycasting wall side indicators
+# define VERTICAL_WALL 0
+# define HORIZONTAL_WALL 1
 // movement speed constant (units per frame)
 // smaller = slower, larger = faster
 # define MOVE_SPEED 0.05
@@ -257,7 +260,7 @@ int				load_and_validate_map(char *path, t_game *game);
 int				init_game_data(t_game *game);
 
 /* init_textures.c */
-int				init_texture(t_game *game);
+int				init_textures(t_game *game);
 
 /* =========================== */
 /*         PARSING             */
@@ -302,6 +305,8 @@ double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y,
 
 /* dda_utils.c */
 bool			check_hit(t_game *game, t_ray *ray);
+double			calculate_wall_x(t_ray *ray, double pos_x, double pos_y,
+					double wall_dist);
 
 /* raycast_utils.c */
 int				get_wall_color(int wall_dir);

@@ -45,10 +45,11 @@ static int	load_texture(t_game *game, t_texture *texture, char *path)
   * @param game Pointer to game structure
   * @return EXIT_SUCCESS if all textures loaded, EXIT_FAILURE on any error
 */
-int	init_texture(t_game *game)
+int	init_textures(t_game *game)
 {
 	int	i;
 
+	i = 0;
 	while (i < TEX_SIZE)
 	{
 		if (load_texture(game, &game->textures[i], game->map.tex_paths[i])

@@ -13,6 +13,11 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (init_game_data(&game) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
+	if (init_textures(&game) != EXIT_SUCCESS)
+	{
+		cleanup_exit(&game);
+		return (EXIT_FAILURE);
+	}
 	print_ascii_art_hello();
 	print_map_grid(&game.map);
 	setup_hooks(&game);
