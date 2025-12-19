@@ -100,17 +100,16 @@ static void	draw_wall_column(t_game *game, int x, double wall_distance,
  */
 static void	cast_column_ray(t_game *game, int x)
 {
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	wall_distance;
-	int		wall_dir;
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	t_ray_result	result;
 
 	camera_x = 2.0 * x / WINDOWS_X - 1.0;
 	ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
 	ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
-	wall_distance = cast_ray(game, ray_dir_x, ray_dir_y, &wall_dir);
-	draw_wall_column(game, x, wall_distance, wall_dir);
+	result = cast_ray(game, ray_dir_x, ray_dir_y);
+	draw_wall_column(game, x, result.wall_dist, result.wall_dir);
 }
 
 /**

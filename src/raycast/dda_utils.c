@@ -46,3 +46,25 @@ double	calculate_wall_x(t_ray *ray, double pos_x, double pos_y,
 	wall_x = wall_x - floor(wall_x);
 	return (wall_x);
 }
+
+/**
+ * @brief Determines wall direction from ray step and side
+ *
+ * Uses ray side (vertical/horizontal) and step direction
+ * to determine which cardinal direction wall faces.
+ *
+ * @param ray Pointer to ray structure
+ * @return Wall direction (NORTH, SOUTH, EAST, or WEST)
+ */
+int	get_wall_direction(t_ray *ray)
+{
+	if (ray->side == VERTICAL_WALL)
+	{
+		if (ray->step_x > 0)
+			return (EAST);
+		return (WEST);
+	}
+	if (ray->step_y > 0)
+		return (SOUTH);
+	return (NORTH);
+}

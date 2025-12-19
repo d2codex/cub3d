@@ -107,21 +107,20 @@ static double	calculate_wall_distance(t_ray *ray)
 }
 
 /**
- * @brief Casts a ray and returns the distance to the first wall
+ * @brief Casts a ray and returns all raycasting results
  *
  * This is the main DDA function that initializes the ray and finds
- * the distance to the nearest wall.
+ * the distance to the nearest wall, its direction, and exact hit position.
  *
  * @param game Pointer to the game structure
  * @param ray_dir_x X component of the ray direction
  * @param ray_dir_y Y component of the ray direction
- * @param side Pointer to store wall direction (0=NORTH, 1=SOUTH, 2=EAST,
- * 3=WEST)
- * @return The perpendicular distance to the wall
+ * @return t_ray_result containing wall_dist, wall_dir, and wall_x
  */
-double	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y, int *side)
+t_ray_result	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y)
 {
-	t_ray	ray;
+	t_ray			ray;
+	t_ray_result	result;
 
 	// initialize ray direction and map position
 	ray.dir_x = ray_dir_x;
@@ -133,21 +132,11 @@ double	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y, int *side)
 	calculate_side_dist(&ray, game->player.pos_x, game->player.pos_y);
 	// perform DDA to find wall
 	perform_dda(game, &ray);
-	// determine wall direction based on ray step direction
-	if (ray.side == VERTICAL_WALL)
-	{
-		if (ray.step_x > 0)
-			*side = EAST;
-		else
-			*side = WEST;
-	}
-	else
-	{
-		if (ray.step_y > 0)
-			*side = SOUTH;
-		else
-			*side = NORTH;
-	}
-	// calculate and return perpendicular wall distance
-	return (calculate_wall_distance(&ray));
+	// determine wall direction and calculate distances
+	result.wall_dir = get_wall_direction(&ray);
+	result.wall_dist = calculate_wall_distance(&ray);
+	// calculate exact hit position on wall for texture mapping
+	result.wall_x = calculate_wall_x(&ray, game->player.pos_x,
+			game->player.pos_y, result.wall_dist);
+	return (result);
 }
