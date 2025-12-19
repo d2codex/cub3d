@@ -40,11 +40,11 @@ static bool	is_player(char c)
  */
 static const t_orientation	*get_orientation(size_t *count)
 {
-	static const t_orientation	orient[4] = {
-	{'N', 0.0, -1.0, 0.66, 0.0},
-	{'S', 0.0, 1.0, -0.66, 0.0},
-	{'E', 1.0, 0.0, 0.0, 0.66},
-	{'W', -1.0, 0.0, 0.0, -0.66},
+	static const t_orientation	orient[PLAYER_ORIENT_COUNT] = {
+	{'N', 0.0, -1.0, FOV_PLANE, 0.0},
+	{'S', 0.0, 1.0, -FOV_PLANE, 0.0},
+	{'E', 1.0, 0.0, 0.0, FOV_PLANE},
+	{'W', -1.0, 0.0, 0.0, -FOV_PLANE},
 	};
 
 	if (count)

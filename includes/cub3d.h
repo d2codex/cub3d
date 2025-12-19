@@ -68,6 +68,11 @@
 # define RGB_SIZE 3
 # define TEX_SIZE 4
 
+/* table constants */
+# define ADJACENT_DIR_COUNT 4
+# define PLAYER_ORIENT_COUNT 4
+# define FOV_PLANE 0.66
+
 /* game elements */
 # define WINDOWS_X 800
 # define WINDOWS_Y 600
