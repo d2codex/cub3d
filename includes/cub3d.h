@@ -55,6 +55,8 @@
 // raycasting wall side indicators
 # define VERTICAL_WALL 0
 # define HORIZONTAL_WALL 1
+// texture fallback color for out-of-bounds access
+# define TEXTURE_FALLBACK_COLOR 0x000000
 // movement speed constant (units per frame)
 // smaller = slower, larger = faster
 # define MOVE_SPEED 0.05
@@ -320,6 +322,7 @@ int				get_wall_direction(t_ray *ray);
 
 /* raycast_utils.c */
 int				get_wall_color(int wall_dir);
+int				get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
 
 /* raycast.c */
 void			render_frame(t_game *game);
