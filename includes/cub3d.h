@@ -197,6 +197,14 @@ typedef struct s_ray
 	int		side;			// Was wall hit on X-side (0) or Y-side (1)?
 }	t_ray;
 
+/* Ray result structure containing all raycasting outputs */
+typedef struct s_ray_result
+{
+	double	wall_dist;	// Perpendicular distance to wall
+	int		wall_dir;	// Wall direction (NORTH/SOUTH/EAST/WEST)
+	double	wall_x;		// Hit position on wall (0.0 to 1.0)
+}	t_ray_result;
+
  /* Column drawing parameters for rendering */
 typedef struct s_col
 {
@@ -300,13 +308,13 @@ void			draw_pixel_in_buffer(t_game *game, int x, int y, int color);
 /* =========================== */
 
 /* dda.c */
-double			cast_ray(t_game *game, double ray_dir_x, double ray_dir_y,
-		int *side);
+t_ray_result	cast_ray(t_game *game, double ray_dir_x, double ray_dir_y);
 
 /* dda_utils.c */
 bool			check_hit(t_game *game, t_ray *ray);
 double			calculate_wall_x(t_ray *ray, double pos_x, double pos_y,
 					double wall_dist);
+int				get_wall_direction(t_ray *ray);
 
 /* raycast_utils.c */
 int				get_wall_color(int wall_dir);
