@@ -222,6 +222,7 @@ typedef struct s_draw_info
 	int		x;
 	int		draw_start;
 	int		draw_end;
+	int		line_height;
 	int		ceiling;
 	int		wall;
 	int		floor;

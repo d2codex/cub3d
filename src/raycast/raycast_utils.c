@@ -72,9 +72,10 @@ int	get_texture_pixel(t_texture *texture, int tex_x, int tex_y)
  * Maps screen Y coordinates to texture Y coordinates and samples
  * the texture for each pixel. Uses the step/tex_pos algorithm to
  * handle walls of any height, including those extending beyond screen.
+ * Calculates step based on actual wall height to prevent texture squishing.
  *
  * @param game Pointer to game structure
- * @param info Drawing info containing x, draw range, wall_dir, and wall_x
+ * @param info Drawing info containing x, draw range, line_height, wall_dir, wall_x
  */
 void	draw_textured_wall_slice(t_game *game, t_draw_info info)
 {
@@ -85,8 +86,8 @@ void	draw_textured_wall_slice(t_game *game, t_draw_info info)
 	int		y;
 
 	tex_x = calculate_tex_x(info.wall_x);
-	step = (double)TEXTURE_HEIGHT / (info.draw_end - info.draw_start + 1);
-	tex_pos = 0;
+	step = (double)TEXTURE_HEIGHT / info.line_height;
+	tex_pos = (info.draw_start - (WINDOWS_Y - info.line_height) / 2) * step;
 	y = info.draw_start;
 	while (y <= info.draw_end)
 	{

@@ -19,6 +19,18 @@ void	init_data(t_game *game)
 	// Initialize mouse position to center of window
 	game->last_mouse_x = WINDOWS_X / 2;
 	game->last_mouse_y = WINDOWS_Y / 2;
+
+	// TEMPORARY: hardcode texture paths for testing
+	game->map.tex_paths[NO] = "assets/textures/north.xpm";
+	game->map.tex_paths[SO] = "assets/textures/south.xpm";
+	game->map.tex_paths[EA] = "assets/textures/east.xpm";
+	game->map.tex_paths[WE] = "assets/textures/west.xpm";
+	game->map.ceiling_color[0] = 16;  // R
+	game->map.ceiling_color[1] = 16;  // G
+	game->map.ceiling_color[2] = 2;  // B
+	game->map.floor_color[0] = 46;    // R
+	game->map.floor_color[1] = 45;    // G
+	game->map.floor_color[2] = 77;    // B
 }
 
 int	load_and_validate_map(char *path, t_game *game)

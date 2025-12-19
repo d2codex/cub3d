@@ -76,6 +76,7 @@ static void	draw_wall_column(t_game *game, int x, t_ray_result result)
 	info.x = x;
 	info.draw_start = draw_start;
 	info.draw_end = draw_end;
+	info.line_height = line_height;
 	info.ceiling = rgb_tab_to_int(game->map.ceiling_color);
 	info.wall = get_wall_color(result.wall_dir);
 	info.floor = rgb_tab_to_int(game->map.floor_color);
