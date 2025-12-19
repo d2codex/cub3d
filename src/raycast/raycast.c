@@ -24,12 +24,12 @@ static void	draw_column_slice(t_game *game, t_col column)
 /**
  * @brief Draws a complete column with ceiling, wall, and floor
  *
- * Helper function that draws all three vertical slices using the
- * provided drawing information. Delegates to draw_column_slice for
- * each section.
+ * Draws ceiling and floor as solid colors, wall with textures.
+ * Uses draw_column_slice for ceiling/floor and draw_textured_wall_slice
+ * for the wall portion.
  *
  * @param game Pointer to game structure
- * @param info Drawing info containing positions and colors
+ * @param info Drawing info containing positions, colors, wall_dir, and wall_x
  */
 static void	draw_full_column(t_game *game, t_draw_info info)
 {
@@ -40,10 +40,7 @@ static void	draw_full_column(t_game *game, t_draw_info info)
 	col.end = info.draw_start - 1;
 	col.color = info.ceiling;
 	draw_column_slice(game, col);
-	col.start = info.draw_start;
-	col.end = info.draw_end;
-	col.color = info.wall;
-	draw_column_slice(game, col);
+	draw_textured_wall_slice(game, info);
 	col.start = info.draw_end + 1;
 	col.end = WINDOWS_Y - 1;
 	col.color = info.floor;

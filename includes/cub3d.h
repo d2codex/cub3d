@@ -322,7 +322,9 @@ int				get_wall_direction(t_ray *ray);
 
 /* raycast_utils.c */
 int				get_wall_color(int wall_dir);
+int				calculate_tex_x(double wall_x);
 int				get_texture_pixel(t_texture *texture, int tex_x, int tex_y);
+void			draw_textured_wall_slice(t_game *game, t_draw_info info);
 
 /* raycast.c */
 void			render_frame(t_game *game);
