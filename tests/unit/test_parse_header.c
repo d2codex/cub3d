@@ -51,7 +51,7 @@ int	main(void)
 		EXPECTED_MAP_START_LINE
 	},
 	{
-		"Invalid foor value",
+		"Invalid floor value",
 		"../maps/test_headers/invalid_value_floor.cub",
 		true,
 		EXPECTED_MAP_START_LINE
