@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 /**
- * @file test_check_header_count.c
+ * @file test_check_headers.c
  * @brief Unit tests for check_header_count() function.
  *
  * Tests that header count checking works correctly:
@@ -10,8 +10,8 @@
  * - More than 6 headers → fail
  *
  * Usage:
- *   Build: make build TEST=unit/test_check_header_count.c
- *   Run:   ./bin/test_check_header_count
+ *   Build: make build TEST=unit/test_check_headers.c
+ *   Run:   ./bin/test_check_headers
  */
 #include "cub3d.h"
 #include <stdio.h>
