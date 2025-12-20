@@ -46,7 +46,7 @@ int	main(void)
 	},
 	{
 		"Duplicate header",
-		"../maps/test_headers/duplicate_header.cub",
+		"../maps/test_headers/duplicate_headers.cub",
 		true,
 		EXPECTED_MAP_START_LINE
 	},

@@ -1,5 +1,5 @@
 /**
- * @file test_parse_header_line_dup.c
+ * @file test_parse_header_duplicate.c
  * @brief Unit test for detecting duplicate header lines in
  * parse_header_line().
  *
