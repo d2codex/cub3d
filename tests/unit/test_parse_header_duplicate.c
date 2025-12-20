@@ -10,8 +10,8 @@
  *     (duplicate header detection).
  *
  * Usage:
- *   Build: make build TEST=unit/test_parse_header_line_dup.c
- *   Run:   ./bin/test_parse_header_line_dup
+ *   Build: make build TEST=unit/test_parse_header_duplicate.c
+ *   Run:   ./bin/test_parse_header_duplicate
  *
  * The test creates temporary dummy texture files to satisfy validation checks.
  * Memory is properly freed after the test.
@@ -45,7 +45,7 @@ int	main(void)
 	t_map	map;
 	int		ret;
 
-	printf(CYN"=== parse_header_line Duplicate Header Test ===\n\n" RESET);
+	printf(CYN"=== Parse header line duplicate header Test ===\n\n" RESET);
 	printf("=================================================\n");
 	create_dummy_file("./test_NO.xpm");
 	// Initialize map

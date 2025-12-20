@@ -13,7 +13,7 @@
  * uses assertions to verify correct behavior.
  *
  * Usage:
- *   Build: make build TEST=unit/test_validate_map.integ.c
+ *   Build: make build TEST=unit/test_validate_map.c
  *   Run:   ./bin/test_validate_map
  */
 #include "cub3d.h"
