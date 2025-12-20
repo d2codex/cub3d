@@ -1,5 +1,5 @@
 /**
- * @file test_validate_map.integ.c
+ * @file test_validate_map.c
  * @brief Integration tests for map validation in cub3d.
  *
  * This test program validates the behavior of check_valid_map().
