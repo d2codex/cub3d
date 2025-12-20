@@ -31,7 +31,7 @@ static int	get_map_dimensions(const char *path, t_map *map)
 		if (i >= map->map_start_line)
 		{
 			len = ft_strlen(line);
-			if (line[len - 1] == '\n')
+			if (len > 0 && line[len - 1] == '\n')
 				len--;
 			map->width = max_int(map->width, len);
 			map->height++;
