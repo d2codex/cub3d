@@ -27,27 +27,29 @@ void	apply_camera_rotation(t_game *game, double angle)
 }
 
 /**
- * @brief Rotates camera to the left (counter-clockwise)
+ * @brief Rotates camera to the left
  *
  * Applies rotation matrix to both direction and camera plane vectors
  * using the shared apply_camera_rotation helper function.
+ * Uses negative angle for leftward rotation in screen coordinates.
  *
  * @param game Pointer to game structure
  */
 void	rotate_left(t_game *game)
 {
-	apply_camera_rotation(game, ROT_SPEED);
+	apply_camera_rotation(game, -ROT_SPEED);
 }
 
 /**
- * @brief Rotates camera to the right (clockwise)
+ * @brief Rotates camera to the right
  *
- * Applies rotation matrix with negative angle (clockwise rotation)
+ * Applies rotation matrix to both direction and camera plane vectors
  * using the shared apply_camera_rotation helper function.
+ * Uses positive angle for rightward rotation in screen coordinates.
  *
  * @param game Pointer to game structure
  */
 void	rotate_right(t_game *game)
 {
-	apply_camera_rotation(game, -ROT_SPEED);
+	apply_camera_rotation(game, ROT_SPEED);
 }

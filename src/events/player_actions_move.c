@@ -68,8 +68,8 @@ void	strafe_left(t_game *game)
 	double	new_x;
 	double	new_y;
 
-	new_x = game->player.pos_x - game->player.dir_y * MOVE_SPEED;
-	new_y = game->player.pos_y + game->player.dir_x * MOVE_SPEED;
+	new_x = game->player.pos_x + game->player.dir_y * MOVE_SPEED;
+	new_y = game->player.pos_y - game->player.dir_x * MOVE_SPEED;
 	try_move(game, new_x, new_y);
 }
 
@@ -83,7 +83,7 @@ void	strafe_right(t_game *game)
 	double	new_x;
 	double	new_y;
 
-	new_x = game->player.pos_x + game->player.dir_y * MOVE_SPEED;
-	new_y = game->player.pos_y - game->player.dir_x * MOVE_SPEED;
+	new_x = game->player.pos_x - game->player.dir_y * MOVE_SPEED;
+	new_y = game->player.pos_y + game->player.dir_x * MOVE_SPEED;
 	try_move(game, new_x, new_y);
 }

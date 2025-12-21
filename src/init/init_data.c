@@ -25,12 +25,12 @@ void	init_data(t_game *game)
 	game->map.tex_paths[SO] = "assets/textures/south.xpm";
 	game->map.tex_paths[EA] = "assets/textures/east.xpm";
 	game->map.tex_paths[WE] = "assets/textures/west.xpm";
-	game->map.ceiling_color[0] = 16;  // R
-	game->map.ceiling_color[1] = 16;  // G
-	game->map.ceiling_color[2] = 2;  // B
-	game->map.floor_color[0] = 46;    // R
-	game->map.floor_color[1] = 45;    // G
-	game->map.floor_color[2] = 77;    // B
+	game->map.ceiling_color[0] = 39;  // R
+	game->map.ceiling_color[1] = 229;  // G
+	game->map.ceiling_color[2] = 245;  // B
+	game->map.floor_color[0] = 67;    // R
+	game->map.floor_color[1] = 96;    // G
+	game->map.floor_color[2] = 98;    // B
 }
 
 int	load_and_validate_map(char *path, t_game *game)
