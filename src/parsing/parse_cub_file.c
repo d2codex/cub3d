@@ -30,7 +30,10 @@ static int	parse_headers(int fd, char **line, int *i, t_map *map)
 	{
 		skip_empty_lines(line, fd, i);
 		if (map->header_line_count == HEADER_SIZE)
+		{
+			print_errors(HEADER_MISSING, NULL, NULL);
 			return (EXIT_SUCCESS);
+		}
 		if (parse_header_line(map, *line) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		free(*line);
@@ -68,6 +71,7 @@ int	parse_cub_file(const char *path, t_map *map)
 	fd = open_cub_file(path);
 	if (fd < 0)
 		return (EXIT_FAILURE);
+	//gnl_clear_fd(fd);
 	i = 0;
 	line = get_next_line(fd);
 	if (parse_headers(fd, &line, &i, map) == EXIT_FAILURE)
@@ -82,6 +86,7 @@ int	parse_cub_file(const char *path, t_map *map)
 		close(fd);
 		return (EXIT_FAILURE);
 	}
+	//gnl_clear_fd(fd);
 	close(fd);
 	return (EXIT_SUCCESS);
 }
