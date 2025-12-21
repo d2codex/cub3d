@@ -34,15 +34,14 @@ SRC =	src/main.c \
 		src/events/player_actions_rotate.c \
 		src/init/init_data.c \
 		src/init/init_mlx.c \
-		src/parsing/check_headers.c \
 		src/parsing/file_validations.c \
 		src/parsing/header_table.c \
-		src/parsing/header_utils.c \
-		src/parsing/parse_rgb.c \
-		src/parsing/parse_header.c \
+		src/parsing/load_map_grid.c \
+		src/parsing/parse_cub_file.c \
+		src/parsing/parse_cub_file_utils.c \
 		src/parsing/parse_header_line.c \
-		src/parsing/parse_map.c \
-		src/parsing/parse_map_utils.c \
+		src/parsing/parse_rgb.c \
+		src/parsing/parse_utils.c \
 		src/parsing/player_setup.c \
 		src/parsing/player_setup_utils.c \
 		src/parsing/validate_map.c \

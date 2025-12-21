@@ -1,48 +1,6 @@
 #include "cub3d.h"
 
 /**
- * @brief Compute map width and height from a .cub file.
- *
- * Reads the file line by line and counts only lines belonging to the map,
- * starting at map->map_start_line. The map width is set to the length of
- * the longest map line (excluding the trailing newline). The map height
- * is the number of map lines.
- *
- * @param path Path to the .cub file.
- * @param map  Pointer to the map structure to fill dimensions.
- *
- * @return EXIT_SUCCESS on success, EXIT_FAILURE on file open error.
- */
-static int	get_map_dimensions(const char *path, t_map *map)
-{
-	int		fd;
-	int		len;
-	int		i;
-	char	*line;
-
-	fd = open_cub_file(path);
-	if (fd < 0)
-		return (EXIT_FAILURE);
-	gnl_clear_fd(fd);
-	i = 0;
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (i >= map->map_start_line)
-		{
-			len = ft_strlen(line);
-			if (len > 0 && line[len - 1] == '\n')
-				len--;
-			map->width = max_int(map->width, len);
-			map->height++;
-		}
-		next_line(&line, fd, &i);
-	}
-	gnl_clear_fd(fd);
-	return (close(fd), EXIT_SUCCESS);
-}
-
-/**
  * @brief Pads a line with spaces to match the map width.
  * @param row The input line from the .cub file.
  * @param width The desired width of the padded line.
@@ -86,6 +44,11 @@ static int	store_map_line(t_map *map, int i, int *y, char *line)
 {
 	if (i < map->map_start_line)
 		return (EXIT_SUCCESS);
+	if (*y >= map->height)
+	{
+		free(line);
+		return (EXIT_FAILURE);
+	}
 	map->grid[*y] = pad_line(line, map->width);
 	if (!map->grid[*y])
 	{
@@ -108,7 +71,7 @@ static int	store_map_line(t_map *map, int i, int *y, char *line)
  * @param map Pointer to the t_map structure to populate.
  * @return EXIT_SUCCESS on success, EXIT_FAILURE on malloc or I/O failure.
  */
-static int	load_map_grid(const char *path, t_map *map)
+int	load_map_grid(const char *path, t_map *map)
 {
 	int		y;
 	int		fd;
@@ -118,47 +81,19 @@ static int	load_map_grid(const char *path, t_map *map)
 	fd = open_cub_file(path);
 	if (fd < 0)
 		return (EXIT_FAILURE);
-	gnl_clear_fd(fd);
 	map->grid = malloc(sizeof (char *) * map->height);
 	if (!map->grid)
-		return (close(fd), EXIT_FAILURE);
+		return (free(line), close(fd), EXIT_FAILURE);
 	y = 0;
 	i = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (line && y < map->height)
 	{
 		if (store_map_line(map, i, &y, line) == EXIT_FAILURE)
 			return (free(line), close(fd), EXIT_FAILURE);
 		next_line(&line, fd, &i);
 	}
-	gnl_clear_fd(fd);
+	free(line);
 	close(fd);
-	return (EXIT_SUCCESS);
-}
-
-/**
- * @brief Parses a .cub file and fills the t_map structure.
- * 
- * It reads the .cub file, calculates dimensions, and loads the grid.
- *
- * @param path Path to the .cub file.
- * @param map Pointer to t_map structure to fill.
- * @return 0 on success, 1 on failure.
- *
- * @note **Currently, no validation of the map contents is performed.**
- *       Only the map dimensions and grid are loaded and padded.
- */
-int	parse_map(const char *path, t_map *map)
-{
-	if (get_map_dimensions(path, map))
-	{
-		print_errors(MAP_DIMENSIONS, NULL, NULL);
-		return (EXIT_FAILURE);
-	}
-	if (load_map_grid(path, map))
-	{
-		print_errors(MAP_LOAD, NULL, NULL);
-		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }

@@ -32,6 +32,7 @@
 # define MAP_DIMENSIONS "Invalid map dimensions"
 # define MAP_TOO_LARGE "Map too large (max 500 x 500)"
 # define MAP_CHAR "Invalid character in map"
+# define MAP_INVALID_START "Map start line is invalid"
 # define MAP_ZERO_BORDER "Map not closed: 0 on border"
 # define MAP_ZERO_INVALID "Map not closed: 0 adjacent to invalid cell"
 # define MAP_SPACE "Map not closed: space adjacent to walkable area"
@@ -104,7 +105,8 @@ typedef struct s_map
 	int		ceiling_color[RGB_SIZE];
 	char	*tex_paths[TEX_SIZE];
 	bool	id_set[HEADER_SIZE];
-	int		map_start_line; //where map lines start
+	int		map_start_line; //where map lines star
+	int		header_line_count;
 }	t_map;
 
 /* Tracks which keys are currently pressed */
@@ -220,37 +222,35 @@ int				init_game_data(t_game *game);
 /*         PARSING             */
 /* =========================== */
 
-/* check_headers.c */
-int				check_header_count(const char *path);
-
 /* file_validations.c */
 int				validate_argument(char *filename);
 
 /* header_table.c */
 const t_header_entry	*get_header_entry(const char *line);
 
-/* header_utils.c */
+/*load_map_grid.c */
+int				load_map_grid(const char *path, t_map *map);
+
+/* parse_cub_file.c */
+int				parse_cub_file(const char *path, t_map *map);
+
+/* parse_cub_file_utils.c */
 void			next_line(char **line, int fd, int *i);
 bool			line_is_empty(char *line);
-
-/* parse_header.c */
-int				parse_header(const char *path, t_map *map);
+bool			skip_empty_lines(char **line, int fd, int *i);
 
 /* parse_header_line.c */
 int				parse_header_line(t_map *map, char *line);
 
-/*parse_map.c */
-int				parse_map(const char *path, t_map *map);
+/* parse_rgb.c */
+int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
 
-/*parse_map_utils.c */
+/*parse_utils.c */
 int				max_int(int a, int b);
 int				open_cub_file(const char *path);
 void			print_map_grid(t_map *map);
 void			free_map_grid(t_map *map);
 void			free_partial_grid(t_map *map, int filled_rows);
-
-/* parse_rgb.c */
-int				parse_rgb(const char *value, int rgb_values[RGB_SIZE]);
 
 /* player_setup.c */
 int				init_player(t_game *game);

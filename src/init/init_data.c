@@ -45,14 +45,9 @@ int	load_and_validate_map(char *path, t_game *game)
 	if (validate_argument(path) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
 	init_data(game);
-	if (check_header_count(path) != EXIT_SUCCESS)
+	if (parse_cub_file(path, &game->map) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (parse_header(path, &game->map) != EXIT_SUCCESS)
-	{
-		free_t_map(&game->map);
-		return (EXIT_FAILURE);
-	}
-	if (parse_map(path, &game->map) != EXIT_SUCCESS)
+	if (load_map_grid(path, &game->map) != EXIT_SUCCESS)
 	{
 		free_t_map(&game->map);
 		return (EXIT_FAILURE);

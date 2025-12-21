@@ -96,6 +96,7 @@ static int	parse_header_value(t_map *map, const char *value, t_header_type id)
 		if (set_rgb_color(map, id, value) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
+	map->header_line_count++;
 	map->id_set[id] = true;
 	return (EXIT_SUCCESS);
 }
