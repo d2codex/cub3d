@@ -1,9 +1,9 @@
-NO assets/textures/cave/NO.xpm
-SO assets/textures/cave/SO.xpm
-WE assets/textures/cave/WE.xpm
-EA assets/textures/cave/EA.xpm
-C 128, 195, 237
-F 169, 184, 194
+NO assets/textures/sky/NO.xpm
+SO assets/textures/sky/SO.xpm
+WE assets/textures/sky/WE.xpm
+EA assets/textures/sky/EA.xpm
+F 1, 37, 38
+C 3, 2, 48
 111
 101
 1N1
