@@ -55,7 +55,8 @@ static void	draw_full_column(t_game *game, t_draw_info info)
  *
  * @param game Pointer to the game structure
  * @param x Screen column position (0 to WINDOWS_X-1)
- * @param result Ray result containing wall distance, direction, and hit position
+ * @param result Ray result containing wall distance, direction, and hit
+ * position
  */
 static void	draw_wall_column(t_game *game, int x, t_ray_result result)
 {
