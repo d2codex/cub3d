@@ -8,7 +8,7 @@
   *
   * @param game Pointer to game structure
 */
-static void	cleanup_textures(t_game *game)
+void	cleanup_textures(t_game *game)
 {
 	int	i;
 
