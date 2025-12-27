@@ -6,7 +6,7 @@
 /*   By: pafroidu <pafroidu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 13:52:52 by diade-so          #+#    #+#             */
-/*   Updated: 2025/12/27 18:14:09 by pafroidu         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:57:59 by diade-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@
 /*        STRUCTURES           */
 /* =========================== */
 
+/** Enum of valid .cub file header identifiers (textures and colors). */
 typedef enum e_header_type
 {
 	ID_NONE = -1,
