@@ -30,7 +30,7 @@
 
 /* map parsing errors */
 # define MAP_DIMENSIONS "Invalid map dimensions"
-# define MAP_TOO_LARGE "Map too large (max 500 x 500)"
+# define MAP_TOO_LARGE "Map too large (max 100 x 100)"
 # define MAP_CHAR "Invalid character in map"
 # define MAP_ZERO_BORDER "Map not closed: 0 on border"
 # define MAP_ZERO_INVALID "Map not closed: 0 adjacent to invalid cell"
@@ -66,8 +66,8 @@
 /* map and header constants */
 # define PLAYER "NSEW"
 # define TILE_CENTER_OFFSET 0.5
-# define MAX_MAP_W 500
-# define MAX_MAP_H 500
+# define MAX_MAP_W 100
+# define MAX_MAP_H 100
 # define RGB_SIZE 3
 # define TEX_SIZE 4
 
