@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diade-so <diade-so@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pafroidu <pafroidu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 13:52:52 by diade-so          #+#    #+#             */
-/*   Updated: 2025/12/27 13:53:01 by diade-so         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:14:09 by pafroidu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 # define TEXTURE_FALLBACK_COLOR 0x000000
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
-# define MOUSE_SENSITIVITY 0.00005
+# define MOUSE_SENSITIVITY 0.002
 
 /* =========================== */
 /*        STRUCTURES           */
@@ -268,12 +268,12 @@ t_key_binding			*get_key_bindings(t_game *game);
 
 /* mouse_handler.c */
 int						handle_mouse_move(int x, int y, void *param);
-void					apply_camera_rotation(t_game *game, double angle);
 
 /* hooks.c */
 void					setup_hooks(t_game *game);
 
 /* player_actions_rotate.c */
+void					apply_camera_rotation(t_game *game, double angle);
 void					rotate_left(t_game *game);
 void					rotate_right(t_game *game);
 
