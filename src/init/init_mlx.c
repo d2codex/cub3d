@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diade-so <diade-so@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pafroidu <pafroidu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 13:57:20 by diade-so          #+#    #+#             */
-/*   Updated: 2025/12/27 19:55:31 by diade-so         ###   ########.fr       */
+/*   Updated: 2025/12/28 00:01:28 by pafroidu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ static void	cleanup_partial_mlx_init(t_game *game)
 	if (!game)
 		return ;
 	if (game->img)
+	{
 		mlx_destroy_image(game->mlx, game->img);
+		game->img = NULL;
+	}
 	if (game->win)
+	{
 		mlx_destroy_window(game->mlx, game->win);
+		game->win = NULL;
+	}
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
+		game->mlx = NULL;
 	}
 }
 
@@ -114,11 +121,13 @@ static int	init_game_image_buffer(t_game *game)
 int	init_graphics(t_game *game)
 {
 	if (!game)
+		return (print_errors(NULL_TGAME, NULL, NULL), EXIT_FAILURE);
+	if (init_game_connection(game) != EXIT_SUCCESS)
 	{
-		print_errors(NULL_TGAME, NULL, NULL);
+		cleanup_partial_mlx_init(game);
 		return (EXIT_FAILURE);
 	}
-	if (init_game_connection(game) != EXIT_SUCCESS)
+	if (validate_window_size(game->mlx) != EXIT_SUCCESS)
 	{
 		cleanup_partial_mlx_init(game);
 		return (EXIT_FAILURE);

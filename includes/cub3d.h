@@ -6,7 +6,7 @@
 /*   By: pafroidu <pafroidu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 13:52:52 by diade-so          #+#    #+#             */
-/*   Updated: 2025/12/27 18:57:59 by diade-so         ###   ########.fr       */
+/*   Updated: 2025/12/27 23:57:30 by pafroidu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@
 # define TEXTURE_LOAD "Failed to load texture"
 # define TEXTURE_DIMENSION "Texture is not 64x64"
 # define TEXTURE_DATA "Failed to retrieved necessary textures data"
+# define WIN_TOO_SMALL "Window size too small (minimum: 640x480)"
+# define WIN_TOO_LARGE "Window size exceeds screen dimensions"
 
 /* map and header constants */
 # define PLAYER "NSEW"
@@ -92,6 +94,9 @@
 /* game elements */
 # define WINDOWS_X 1920
 # define WINDOWS_Y 1080
+# define MIN_SCREEN_WIDTH 640
+# define MIN_SCREEN_HEIGHT 480
+# define SCREEN_SAFETY_FACTOR 0.95
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 # define WINDOWS_MSG "Welcome to CUB3D"
@@ -291,6 +296,9 @@ void					strafe_right(t_game *game);
 
 /* init_data.c */
 void					init_t_game(t_game *game);
+
+/* init_mlx_utils.c */
+int						validate_window_size(void *mlx);
 
 /* init_mlx.c */
 int						init_graphics(t_game *game);
