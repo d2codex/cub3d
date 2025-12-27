@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diade-so <diade-so@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pafroidu <pafroidu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 13:54:27 by diade-so          #+#    #+#             */
-/*   Updated: 2025/12/27 13:54:31 by diade-so         ###   ########.fr       */
+/*   Updated: 2025/12/27 18:03:45 by pafroidu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,7 @@ int	game_loop(void *param)
 			bindings[i].action(game);
 		i++;
 	}
-	// clear the window before rendering new frame
-	mlx_clear_window(game->mlx, game->win);
-	// render full frame (WINDOWS_X)
 	render_frame(game);
-	// display the rendered frame
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (EXIT_SUCCESS);
 }
