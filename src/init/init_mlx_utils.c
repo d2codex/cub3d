@@ -25,8 +25,6 @@ int	validate_window_size(void *mlx)
 {
 	int	screen_w;
 	int	screen_h;
-	int	max_safe_w;
-	int	max_safe_h;
 
 	if (WINDOWS_X < MIN_SCREEN_WIDTH || WINDOWS_Y < MIN_SCREEN_HEIGHT)
 	{
@@ -34,17 +32,13 @@ int	validate_window_size(void *mlx)
 		return (EXIT_FAILURE);
 	}
 	mlx_get_screen_size(mlx, &screen_w, &screen_h);
-	max_safe_w = screen_w * SCREEN_SAFETY_FACTOR;
-	max_safe_h = screen_h * SCREEN_SAFETY_FACTOR;
-	if (max_safe_w > MAX_SCREEN_WIDTH)
-		max_safe_w = MAX_SCREEN_WIDTH;
-	if (max_safe_h > MAX_SCREEN_HEIGHT)
-		max_safe_h = MAX_SCREEN_HEIGHT;
-	if (WINDOWS_X > max_safe_w || WINDOWS_Y > max_safe_h)
+	if (WINDOWS_X > screen_w || WINDOWS_Y > screen_h
+		|| WINDOWS_X > MAX_SCREEN_WIDTH || WINDOWS_Y > MAX_SCREEN_HEIGHT)
 	{
 		print_errors(WIN_TOO_LARGE, NULL, NULL);
-		printf("Window: %dx%d | Screen: %dx%d | Safe max: %dx%d\n",
-			WINDOWS_X, WINDOWS_Y, screen_w, screen_h, max_safe_w, max_safe_h);
+		printf("Window: %dx%d | Screen: %dx%d | Max allowed: %dx%d\n",
+			WINDOWS_X, WINDOWS_Y, screen_w, screen_h,
+			MAX_SCREEN_WIDTH, MAX_SCREEN_HEIGHT);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

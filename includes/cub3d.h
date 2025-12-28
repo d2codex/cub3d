@@ -92,16 +92,15 @@
 # define FOV_PLANE 0.66
 
 /* game elements */
+# define WINDOWS_MSG "Welcome to CUB3D"
 # define WINDOWS_X 1824
 # define WINDOWS_Y 925
 # define MIN_SCREEN_WIDTH 640
 # define MIN_SCREEN_HEIGHT 480
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1440
-# define SCREEN_SAFETY_FACTOR 0.95
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
-# define WINDOWS_MSG "Welcome to CUB3D"
 # define MIN_WALL_DISTANCE 0.001
 # define VERTICAL_WALL 0
 # define HORIZONTAL_WALL 1
