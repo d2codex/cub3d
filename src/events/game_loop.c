@@ -28,9 +28,14 @@ static int	should_render_frame(void)
 	long					elapsed;
 
 	gettimeofday(&current, NULL);
-	elapsed = (current.tv_sec - last_frame.tv_sec) * 1000000
+	if (last_frame.tv_sec == 0)
+	{
+		last_frame = current;
+		return (1);
+	}
+	elapsed = (current.tv_sec - last_frame.tv_sec) * US_PER_SECOND
 		+ (current.tv_usec - last_frame.tv_usec);
-	if (elapsed >= 16666 || last_frame.tv_sec == 0)
+	if (elapsed >= FRAME_TIME_US)
 	{
 		last_frame = current;
 		return (1);

@@ -107,6 +107,8 @@
 # define MOVE_SPEED 0.05
 # define ROT_SPEED 0.05
 # define MOUSE_SENSITIVITY 0.002
+# define US_PER_SECOND 1000000
+# define FRAME_TIME_US 16666
 
 /* =========================== */
 /*        STRUCTURES           */
