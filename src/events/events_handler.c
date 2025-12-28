@@ -65,7 +65,7 @@ int	handle_keypress(int keycode, void *param)
 
 	game = (t_game *)param;
 	if (keycode == XK_Escape)
-		cleanup_exit(game);
+		cleanup_exit(game, EXIT_SUCCESS);
 	bindings = get_key_bindings(game);
 	i = 0;
 	while (bindings[i].action)
@@ -122,6 +122,6 @@ int	handle_close(void *param)
 	t_game	*game;
 
 	game = (t_game *)param;
-	cleanup_exit(game);
+	cleanup_exit(game, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }

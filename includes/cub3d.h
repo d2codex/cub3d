@@ -92,8 +92,8 @@
 # define FOV_PLANE 0.66
 
 /* game elements */
-# define WINDOWS_X 1920
-# define WINDOWS_Y 1080
+# define WINDOWS_X 1824
+# define WINDOWS_Y 925
 # define MIN_SCREEN_WIDTH 640
 # define MIN_SCREEN_HEIGHT 480
 # define SCREEN_SAFETY_FACTOR 0.95
@@ -396,7 +396,8 @@ void					print_ascii_art_hello(void);
 /* cleanup_exit.c */
 void					cleanup_textures(t_game *game);
 void					free_t_map(t_map *map);
-void					cleanup_exit(t_game *game);
+void					cleanup_game(t_game *game);
+void					cleanup_exit(t_game *game, int status);
 
 /* print_errors.c */
 void					print_errors(char *p1, char *p2, char *p3);

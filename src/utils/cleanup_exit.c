@@ -81,10 +81,10 @@ void	free_t_map(t_map *map)
   *
   * @param game Pointer to game structure
 */
-void	cleanup_exit(t_game *game)
+void	cleanup_game(t_game *game)
 {
 	if (!game)
-		exit(EXIT_FAILURE);
+		return ;
 	if (game->mlx)
 		cleanup_textures(game);
 	if (game->img)
@@ -97,5 +97,10 @@ void	cleanup_exit(t_game *game)
 		free(game->mlx);
 	}
 	free_t_map(&game->map);
-	exit(EXIT_SUCCESS);
+}
+
+void	cleanup_exit(t_game *game, int status)
+{
+	cleanup_game(game);
+	exit(status);
 }

@@ -44,18 +44,18 @@ int	main(int argc, char **argv)
 	}
 	init_t_game(&game);
 	if (validate_argument(argv[1]) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		cleanup_exit(&game, EXIT_FAILURE);
 	if (parse_and_validate_cub(argv[1], &game) != EXIT_SUCCESS)
-		return (EXIT_FAILURE);
+		cleanup_exit(&game, EXIT_FAILURE);
 	if (init_graphics(&game) != EXIT_SUCCESS)
-		cleanup_exit(&game);
+		cleanup_exit(&game, EXIT_FAILURE);
 	if (init_textures(&game) != EXIT_SUCCESS)
-		cleanup_exit(&game);
+		cleanup_exit(&game, EXIT_FAILURE);
 	print_ascii_art_hello();
 	print_map_grid(&game.map);
 	setup_hooks(&game);
 	mlx_loop_hook(game.mlx, game_loop, &game);
 	mlx_loop(game.mlx);
-	cleanup_exit(&game);
+	cleanup_exit(&game, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
