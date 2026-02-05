@@ -17,7 +17,8 @@
   *
   * Destroys MLX image objects for all 4 wall textures.
   * Checks for NULL before destroying to handle partial initialization.
-  * Safe to call even if textures were never loaded.
+  * Sets all pointers to NULL after freeing to prevent double-free errors.
+  * Safe to call multiple times (idempotent).
   *
   * @param game Pointer to game structure
 */
@@ -29,7 +30,10 @@ void	cleanup_textures(t_game *game)
 	while (i < TEX_SIZE)
 	{
 		if (game->textures[i].img)
+		{
 			mlx_destroy_image(game->mlx, game->textures[i].img);
+			game->textures[i].img = NULL;
+		}
 		i++;
 	}
 }
